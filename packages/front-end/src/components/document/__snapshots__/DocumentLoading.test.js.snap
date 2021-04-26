@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DocumentLoading /> render correctly DocumentLoading component 1`] = `
+<div
+  className="slds-spinner_container"
+>
+  <div
+    aria-hidden="false"
+    className="slds-spinner slds-spinner_small"
+    role="status"
+  >
+    <span
+      className="slds-assistive-text"
+    >
+      Recherche en cours
+    </span>
+    <div
+      className="slds-spinner__dot-a"
+    />
+    <div
+      className="slds-spinner__dot-b"
+    />
+  </div>
+</div>
+`;

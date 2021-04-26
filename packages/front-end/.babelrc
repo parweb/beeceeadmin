@@ -1,0 +1,4 @@
+{
+  "presets": ["react-app","@salesforce/babel-preset-design-system-react"],
+  "plugins": ["@babel/plugin-proposal-optional-chaining"]
+}

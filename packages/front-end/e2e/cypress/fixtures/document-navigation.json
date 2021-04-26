@@ -1,0 +1,15 @@
+[
+  {
+    "numDos": 34378239,
+    "dateCreation": "2019-10-30T18:13:00",
+    "nomFichier": "WRP_191030181315927_JBOSS_87987048_01.PDF",
+    "codeQualification": "FAR ",
+    "idDocNum": 1,
+    "url": "http://docnum-core-container:8080/doc-num/api/v1/documents/download/WRP/2019303/WRP_191030181315927_JBOSS_87987048_01.PDF",
+    "typeDocument": "WRP",
+    "externalUrl": "http://apps-int.bca.fr/doc-num/api/v1/documents/download/WRP/2019303/WRP_191030181315927_JBOSS_87987048_01.PDF",
+    "dissociable": true,
+    "preview": "https://apps-int.bca.fr/doc-num-front/api/image/?url=http://apps-int.bca.fr/doc-num/api/v1/documents/download/WRP/2019303/WRP_191030181315927_JBOSS_87987048_01.PDF",
+    "attachments": []
+  }
+]

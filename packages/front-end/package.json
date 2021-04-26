@@ -1,0 +1,93 @@
+{
+  "homepage": "/doc-num-front",
+  "name": "doc-num-front-end",
+  "version": "0.1.4",
+  "private": true,
+  "dependencies": {
+    "@apollo/client": "3.3.15",
+    "@chakra-ui/react": "1.5.2",
+    "@cypress/instrument-cra": "1.4.0",
+    "@emotion/react": "11.1.5",
+    "@emotion/styled": "11.3.0",
+    "@salesforce-ux/design-system": "2.14.3",
+    "@salesforce/design-system-react": "0.10.31",
+    "@testing-library/jest-dom": "5.11.10",
+    "@testing-library/react": "11.2.6",
+    "@testing-library/react-hooks": "5.1.1",
+    "@testing-library/user-event": "13.1.5",
+    "axios": "0.21.1",
+    "date-fns": "2.21.1",
+    "enzyme": "3.11.0",
+    "enzyme-adapter-react-16": "1.15.6",
+    "eslint-plugin-react-hooks": "4.2.0",
+    "framer-motion": "4.1.5",
+    "graphql": "15.5.0",
+    "husky": "6.0.0",
+    "immutability-helper": "3.1.1",
+    "jest-canvas-mock": "2.3.1",
+    "js-file-download": "0.4.12",
+    "jwt-decode": "3.1.2",
+    "lint-staged": "10.5.4",
+    "lodash.isequal": "4.5.0",
+    "md5": "2.3.0",
+    "mime-types": "2.1.30",
+    "mutationobserver-shim": "0.3.7",
+    "prettier": "2.2.1",
+    "react": "17.0.2",
+    "react-custom-scrollbars": "4.2.1",
+    "react-dnd": "14.0.2",
+    "react-dnd-html5-backend": "14.0.0",
+    "react-dom": "17.0.2",
+    "react-hook-form": "7.2.1",
+    "react-query": "3.13.10",
+    "react-router-dom": "5.2.0",
+    "react-scripts": "4.0.3",
+    "react-test-renderer": "17.0.2",
+    "reactjs-file-uploader": "1.0.8",
+    "recoil": "0.2.0",
+    "request": "2.88.2",
+    "styled-components": "5.2.3",
+    "transformation-matrix": "2.7.0",
+    "use-media": "1.4.0",
+    "web-vitals": "1.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts -r @cypress/instrument-cra start",
+    "build": "react-scripts build && node build.js",
+    "test": "react-scripts test",
+    "lint": "eslint 'src/**/*.js' --fix",
+    "eject": "react-scripts eject",
+    "coverage": "react-scripts test --coverage --watchAll=false"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "nyc": {
+    "exclude": "src/vitals.js"
+  }
+}

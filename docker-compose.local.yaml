@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  # front-end:
+  #   build:
+  #     context: ./packages/front-end/
+  #   depends_on:
+  #     - back-end
+  #   environment:
+  #     - REACT_APP_API_PREVIEW=http://localhost:6001/?url=
+  #   volumes:
+  #     - ./packages/front-end/:/app
+  #     - /app/node_modules
+  #   stdin_open: true
+  #   ports:
+  #     - "3333:3000"
+
+  back-end:
+    environment:
+      - API_PREVIEW=https://localhost:6001/doc-num-front/api
+      - API_DOC_NUM=https://apps-int.bca.fr/doc-num/api/v1
+      - API_AUTH=https://int4.bca.fr/authentication/api/v1
+      - API_BCA_SIGN=http://ies-calc-01.bcaexpertise.org:4327/bca-sign/v1/BCAGDOC
+      - API_MULSOFT=https://bca-e-api-xps-b2b-int.de-c1.cloudhub.io/api/v1
+      - API_MULSOFT_BASIC=YWRtaW46YWRtaW4=
+      - PATH_TMP=/app/tmp/
+      - NAMESPACE=/doc-num-front/api
+      - WKHTMLTOIMAGE="xvfb-run wkhtmltoimage"
+    build:
+      context: ./packages/back-end/
+    ports:
+      - "6001:3500"
+    restart: always
+    volumes:
+      - /app/node_modules
+      - /app/tmp
+

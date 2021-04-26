@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Extension {
+  id            Int       @id @default(autoincrement())
+  name          String?
+  description   String?
+  group_id      Int?
+  group         Group?    @relation(fields: [group_id], references: [id])
+
+  @@map("codif_extension")
+}
+
+model Group {
+  id          Int         @id @default(autoincrement())
+  name        String?
+  extensions  Extension[]
+  display     Boolean     @default(false)
+  upload      Boolean     @default(false)
+  size        Int         @default(1)
+
+  @@map("codif_group")
+}
+
+model Courrier {
+  id          String         @id
+  name        String?
+
+  @@map("codif_courrier")
+}

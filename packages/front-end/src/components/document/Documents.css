@@ -1,0 +1,91 @@
+#documents-files {
+  margin-top: 30px;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+#documents-files li {
+  margin-bottom: 10px;
+}
+
+.slds-slider-label__range,
+.slds-slider__value {
+  display: none;
+}
+
+.slider-btns .slds-slider-label__label {
+  margin-bottom: 5px;
+}
+
+#group-ation-size.slider-btns .slds-slider-label__label {
+  margin-bottom: 15px;
+}
+
+.slider-btns .slds-form-element__label {
+  text-align: center;
+  display: block;
+  padding: 0 5px;
+}
+
+.slider-btns button {
+  line-height: 1;
+  margin: 6px;
+  padding: 4px 6px;
+}
+
+.modal-primary {
+  position: relative;
+  z-index: 1000;
+}
+.modal-secondary {
+  position: relative;
+  z-index: 1001;
+}
+
+.Badge-all.slds-badge_lightest {
+  border-color: #fff;
+}
+
+.slds-modal__header {
+  background: #f3f2f2;
+}
+
+abbr[title] {
+  text-decoration: none !important;
+}
+
+footer.slds-modal__footer {
+  display: flex;
+  justify-content: center;
+}
+
+.slds-form-element__label {
+  font-size: 1em;
+}
+
+.slds-scoped-notification_light.warning {
+  background-color: #706e6b;
+  color: #fff;
+}
+
+.slds-scoped-notification_light.success {
+  background-color: #04844b;
+  color: #fff;
+}
+
+.slds-scoped-notification_light.error {
+  background-color: #c23934;
+  color: #fff;
+}
+
+.slds-scoped-notification_light.error .slds-icon-text-default {
+  fill: #fff;
+}
+
+.slds-modal__content {
+  overflow: inherit;
+}
+
+table thead .slds-checkbox {
+  display: none !important;
+}

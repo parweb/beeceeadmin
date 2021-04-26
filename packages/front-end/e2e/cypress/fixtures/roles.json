@@ -1,0 +1,21 @@
+[
+  {
+    "Name": "BLANCHARD",
+    "Phone": "0243914030",
+    "Email": "",
+    "Role": "Emetteur"
+  },
+  {
+    "Name": "SEVIN Benoit",
+    "Phone": "",
+    "Email": "abx0@bca.fr",
+    "Role": "Lésé"
+  },
+  {
+    "Name": "SERVICE CLIENT PT NANTES",
+    "Phone": "0240169337",
+    "Email": "gc@bca.fr",
+    "Role": "Dépositaire"
+  },
+  { "Name": "DAMTEST", "Phone": "", "Email": "", "Role": "Récupérateur" }
+]

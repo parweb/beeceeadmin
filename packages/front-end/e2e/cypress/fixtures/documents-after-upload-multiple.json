@@ -1,0 +1,50 @@
+[
+  {
+    "idDocNum": 1,
+    "attachments": [],
+    "codeQualification": "DEP",
+    "dateCreation": "2017-10-16T12:28:00",
+    "dissociable": false,
+    "externalUrl": "http://apps-int.bca.fr/doc-num/api/v1/documents/download/PHOTOS/2019289/PHO_191016123001_795940807_FE-077-YF_736276600.jpg",
+    "nomFichier": "PHO_191016123001_795940807_FE-077-YF_736276600.jpg",
+    "numDos": 34378195,
+    "photo418": false,
+    "photoAO": false,
+    "photoRapport": true,
+    "preview": "https://apps-int.bca.fr/doc-num-front/api/image/?url=http://apps-int.bca.fr/doc-num/api/v1/documents/download/PHOTOS/2019289/PHO_191016123001_795940807_FE-077-YF_736276600.jpg",
+    "typeDocument": "OTHER",
+    "url": "http://docnum-core-container:8080/doc-num/api/v1/documents/download/PHOTOS/2019289/PHO_191016123001_795940807_FE-077-YF_736276600.jpg"
+  },
+  {
+    "idDocNum": 2,
+    "attachments": [],
+    "codeQualification": "DEP",
+    "dateCreation": "2017-10-16T12:28:00",
+    "dissociable": false,
+    "externalUrl": "http://apps-int.bca.fr/doc-num/api/v1/documents/download/PHOTOS/2019289/PHO_191016123001_795940807_FE-077-YF_736276600.jpg",
+    "nomFichier": "PHO_191016123001_795940807_FE-077-YF_736276600.jpg",
+    "numDos": 34378195,
+    "photo418": false,
+    "photoAO": false,
+    "photoRapport": true,
+    "preview": "https://apps-int.bca.fr/doc-num-front/api/image/?url=http://apps-int.bca.fr/doc-num/api/v1/documents/download/PHOTOS/2019289/PHO_191016123001_795940807_FE-077-YF_736276600.jpg",
+    "typeDocument": "OTHER",
+    "url": "http://docnum-core-container:8080/doc-num/api/v1/documents/download/PHOTOS/2019289/PHO_191016123001_795940807_FE-077-YF_736276600.jpg"
+  },
+  {
+    "idDocNum": 3,
+    "attachments": [],
+    "codeQualification": "DEP",
+    "dateCreation": "2017-10-16T12:28:00",
+    "dissociable": false,
+    "externalUrl": "http://apps-int.bca.fr/doc-num/api/v1/documents/download/PHOTOS/2019289/PHO_191016123001_795940807_FE-077-YF_736276600.jpg",
+    "nomFichier": "PHO_191016123001_795940807_FE-077-YF_736276600.jpg",
+    "numDos": 34378195,
+    "photo418": false,
+    "photoAO": false,
+    "photoRapport": true,
+    "preview": "https://apps-int.bca.fr/doc-num-front/api/image/?url=http://apps-int.bca.fr/doc-num/api/v1/documents/download/PHOTOS/2019289/PHO_191016123001_795940807_FE-077-YF_736276600.jpg",
+    "typeDocument": "OTHER",
+    "url": "http://docnum-core-container:8080/doc-num/api/v1/documents/download/PHOTOS/2019289/PHO_191016123001_795940807_FE-077-YF_736276600.jpg"
+  }
+]
