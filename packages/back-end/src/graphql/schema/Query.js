@@ -22,6 +22,20 @@ const Query = queryType({
       pagination: true,
       ordering: true
     });
+
+    t.crud.environnement();
+    t.crud.environnements({
+      filtering: true,
+      pagination: true,
+      ordering: true
+    });
+
+    t.crud.service();
+    t.crud.services({
+      filtering: true,
+      pagination: true,
+      ordering: true
+    });
   }
 });
 

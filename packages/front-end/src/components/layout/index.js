@@ -1,9 +1,0 @@
-export { default as Modal } from './Modal';
-export { default as Toolbar } from './Toolbar';
-export { default as Select } from './Select';
-export { default as ModalConfirmation } from './ModalConfirmation';
-export { default as Grid } from './Grid';
-export { default as GridColumn } from './GridColumn';
-export { default as Slider } from './Slider';
-export { default as Toast } from './Toast';
-export { default as WarningGe } from './WarningGe';

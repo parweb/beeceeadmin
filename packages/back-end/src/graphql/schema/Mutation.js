@@ -22,6 +22,20 @@ const Mutation = mutationType({
         t.crud.deleteOneCourrier();
         t.crud.updateManyCourrier();
         t.crud.deleteManyCourrier();
+
+        t.crud.createOneEnvironnement();
+        t.crud.updateOneEnvironnement();
+        t.crud.upsertOneEnvironnement();
+        t.crud.deleteOneEnvironnement();
+        t.crud.updateManyEnvironnement();
+        t.crud.deleteManyEnvironnement();
+
+        t.crud.createOneService();
+        t.crud.updateOneService();
+        t.crud.upsertOneService();
+        t.crud.deleteOneService();
+        t.crud.updateManyService();
+        t.crud.deleteManyService();
     }
 });
 

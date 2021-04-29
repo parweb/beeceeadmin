@@ -8,29 +8,47 @@ datasource db {
 }
 
 model Extension {
-  id            Int       @id @default(autoincrement())
-  name          String?
-  description   String?
-  group_id      Int?
-  group         Group?    @relation(fields: [group_id], references: [id])
+  id          Int     @id @default(autoincrement())
+  name        String?
+  description String?
+  group       Group?  @relation(fields: [group_id], references: [id])
+  group_id    Int?
 
   @@map("codif_extension")
 }
 
 model Group {
-  id          Int         @id @default(autoincrement())
-  name        String?
-  extensions  Extension[]
-  display     Boolean     @default(false)
-  upload      Boolean     @default(false)
-  size        Int         @default(1)
+  id         Int         @id @default(autoincrement())
+  name       String?
+  extensions Extension[]
+  display    Boolean     @default(false)
+  upload     Boolean     @default(false)
+  size       Int         @default(1)
 
   @@map("codif_group")
 }
 
 model Courrier {
-  id          String         @id
-  name        String?
+  id   String  @id
+  name String?
 
   @@map("codif_courrier")
+}
+
+model Service {
+  id               Int            @id @default(autoincrement())
+  name             String?
+  url              String?
+  environnement    Environnement? @relation(fields: [environnement_id], references: [id])
+  environnement_id Int?
+
+  @@map("codif_service")
+}
+
+model Environnement {
+  id       Int       @id @default(autoincrement())
+  name     String?
+  services Service[]
+
+  @@map("codif_environnement")
 }

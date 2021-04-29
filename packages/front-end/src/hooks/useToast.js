@@ -1,7 +1,7 @@
 import { useSetRecoilState } from 'recoil';
 import md5 from 'md5';
 
-import { $toasts } from 'state';
+import { $toasts } from 'states';
 
 const useToast = () => {
   const setToasts = useSetRecoilState($toasts);

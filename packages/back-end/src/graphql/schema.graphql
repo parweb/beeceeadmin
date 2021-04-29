@@ -52,6 +52,83 @@ input CourrierWhereUniqueInput {
   id: String
 }
 
+type Environnement {
+  id: Int!
+  name: String
+  services(after: ServiceWhereUniqueInput, before: ServiceWhereUniqueInput, first: Int, last: Int, orderBy: [EnvironnementServicesOrderByInput!]): [Service!]!
+}
+
+input EnvironnementCreateInput {
+  name: String
+  services: ServiceCreateNestedManyWithoutEnvironnementInput
+}
+
+input EnvironnementCreateNestedOneWithoutServicesInput {
+  connect: EnvironnementWhereUniqueInput
+  connectOrCreate: EnvironnementCreateOrConnectWithoutServicesInput
+  create: EnvironnementCreateWithoutServicesInput
+}
+
+input EnvironnementCreateOrConnectWithoutServicesInput {
+  create: EnvironnementCreateWithoutServicesInput!
+  where: EnvironnementWhereUniqueInput!
+}
+
+input EnvironnementCreateWithoutServicesInput {
+  name: String
+}
+
+input EnvironnementOrderByInput {
+  id: SortOrder
+  name: SortOrder
+}
+
+input EnvironnementServicesOrderByInput {
+  id: SortOrder
+  name: SortOrder
+}
+
+input EnvironnementUpdateInput {
+  name: NullableStringFieldUpdateOperationsInput
+  services: ServiceUpdateManyWithoutEnvironnementInput
+}
+
+input EnvironnementUpdateManyMutationInput {
+  name: NullableStringFieldUpdateOperationsInput
+}
+
+input EnvironnementUpdateOneWithoutServicesInput {
+  connect: EnvironnementWhereUniqueInput
+  connectOrCreate: EnvironnementCreateOrConnectWithoutServicesInput
+  create: EnvironnementCreateWithoutServicesInput
+  delete: Boolean
+  disconnect: Boolean
+  update: EnvironnementUpdateWithoutServicesInput
+  upsert: EnvironnementUpsertWithoutServicesInput
+}
+
+input EnvironnementUpdateWithoutServicesInput {
+  name: NullableStringFieldUpdateOperationsInput
+}
+
+input EnvironnementUpsertWithoutServicesInput {
+  create: EnvironnementCreateWithoutServicesInput!
+  update: EnvironnementUpdateWithoutServicesInput!
+}
+
+input EnvironnementWhereInput {
+  AND: [EnvironnementWhereInput!]
+  NOT: [EnvironnementWhereInput!]
+  OR: [EnvironnementWhereInput!]
+  id: IntFilter
+  name: StringNullableFilter
+  services: ServiceListRelationFilter
+}
+
+input EnvironnementWhereUniqueInput {
+  id: Int
+}
+
 type Extension {
   description: String
   group: Group
@@ -310,23 +387,35 @@ input IntNullableFilter {
 
 type Mutation {
   createOneCourrier(data: CourrierCreateInput!): Courrier!
+  createOneEnvironnement(data: EnvironnementCreateInput!): Environnement!
   createOneExtension(data: ExtensionCreateInput!): Extension!
   createOneGroup(data: GroupCreateInput!): Group!
+  createOneService(data: ServiceCreateInput!): Service!
   deleteManyCourrier(where: CourrierWhereInput): AffectedRowsOutput!
+  deleteManyEnvironnement(where: EnvironnementWhereInput): AffectedRowsOutput!
   deleteManyExtension(where: ExtensionWhereInput): AffectedRowsOutput!
   deleteManyGroup(where: GroupWhereInput): AffectedRowsOutput!
+  deleteManyService(where: ServiceWhereInput): AffectedRowsOutput!
   deleteOneCourrier(where: CourrierWhereUniqueInput!): Courrier
+  deleteOneEnvironnement(where: EnvironnementWhereUniqueInput!): Environnement
   deleteOneExtension(where: ExtensionWhereUniqueInput!): Extension
   deleteOneGroup(where: GroupWhereUniqueInput!): Group
+  deleteOneService(where: ServiceWhereUniqueInput!): Service
   updateManyCourrier(data: CourrierUpdateManyMutationInput!, where: CourrierWhereInput): AffectedRowsOutput!
+  updateManyEnvironnement(data: EnvironnementUpdateManyMutationInput!, where: EnvironnementWhereInput): AffectedRowsOutput!
   updateManyExtension(data: ExtensionUpdateManyMutationInput!, where: ExtensionWhereInput): AffectedRowsOutput!
   updateManyGroup(data: GroupUpdateManyMutationInput!, where: GroupWhereInput): AffectedRowsOutput!
+  updateManyService(data: ServiceUpdateManyMutationInput!, where: ServiceWhereInput): AffectedRowsOutput!
   updateOneCourrier(data: CourrierUpdateInput!, where: CourrierWhereUniqueInput!): Courrier
+  updateOneEnvironnement(data: EnvironnementUpdateInput!, where: EnvironnementWhereUniqueInput!): Environnement
   updateOneExtension(data: ExtensionUpdateInput!, where: ExtensionWhereUniqueInput!): Extension
   updateOneGroup(data: GroupUpdateInput!, where: GroupWhereUniqueInput!): Group
+  updateOneService(data: ServiceUpdateInput!, where: ServiceWhereUniqueInput!): Service
   upsertOneCourrier(create: CourrierCreateInput!, update: CourrierUpdateInput!, where: CourrierWhereUniqueInput!): Courrier!
+  upsertOneEnvironnement(create: EnvironnementCreateInput!, update: EnvironnementUpdateInput!, where: EnvironnementWhereUniqueInput!): Environnement!
   upsertOneExtension(create: ExtensionCreateInput!, update: ExtensionUpdateInput!, where: ExtensionWhereUniqueInput!): Extension!
   upsertOneGroup(create: GroupCreateInput!, update: GroupUpdateInput!, where: GroupWhereUniqueInput!): Group!
+  upsertOneService(create: ServiceCreateInput!, update: ServiceUpdateInput!, where: ServiceWhereUniqueInput!): Service!
 }
 
 input NestedBoolFilter {
@@ -391,15 +480,144 @@ input NullableStringFieldUpdateOperationsInput {
 type Query {
   courrier(where: CourrierWhereUniqueInput!): Courrier
   courriers(after: CourrierWhereUniqueInput, before: CourrierWhereUniqueInput, first: Int, last: Int, orderBy: [CourrierOrderByInput!], where: CourrierWhereInput): [Courrier!]!
+  environnement(where: EnvironnementWhereUniqueInput!): Environnement
+  environnements(after: EnvironnementWhereUniqueInput, before: EnvironnementWhereUniqueInput, first: Int, last: Int, orderBy: [EnvironnementOrderByInput!], where: EnvironnementWhereInput): [Environnement!]!
   extension(where: ExtensionWhereUniqueInput!): Extension
   extensions(after: ExtensionWhereUniqueInput, before: ExtensionWhereUniqueInput, first: Int, last: Int, orderBy: [ExtensionOrderByInput!], where: ExtensionWhereInput): [Extension!]!
   group(where: GroupWhereUniqueInput!): Group
   groups(after: GroupWhereUniqueInput, before: GroupWhereUniqueInput, first: Int, last: Int, orderBy: [GroupOrderByInput!], where: GroupWhereInput): [Group!]!
+  service(where: ServiceWhereUniqueInput!): Service
+  services(after: ServiceWhereUniqueInput, before: ServiceWhereUniqueInput, first: Int, last: Int, orderBy: [ServiceOrderByInput!], where: ServiceWhereInput): [Service!]!
 }
 
 enum QueryMode {
   default
   insensitive
+}
+
+type Service {
+  environnement: Environnement
+  id: Int!
+  name: String
+  url: String
+}
+
+input ServiceCreateInput {
+  environnement: EnvironnementCreateNestedOneWithoutServicesInput
+  name: String
+  url: String
+}
+
+input ServiceCreateManyEnvironnementInput {
+  id: Int
+  name: String
+  url: String
+}
+
+input ServiceCreateManyEnvironnementInputEnvelope {
+  data: [ServiceCreateManyEnvironnementInput!]
+  skipDuplicates: Boolean
+}
+
+input ServiceCreateNestedManyWithoutEnvironnementInput {
+  connect: [ServiceWhereUniqueInput!]
+  connectOrCreate: [ServiceCreateOrConnectWithoutEnvironnementInput!]
+  create: [ServiceCreateWithoutEnvironnementInput!]
+  createMany: ServiceCreateManyEnvironnementInputEnvelope
+}
+
+input ServiceCreateOrConnectWithoutEnvironnementInput {
+  create: ServiceCreateWithoutEnvironnementInput!
+  where: ServiceWhereUniqueInput!
+}
+
+input ServiceCreateWithoutEnvironnementInput {
+  name: String
+  url: String
+}
+
+input ServiceListRelationFilter {
+  every: ServiceWhereInput
+  none: ServiceWhereInput
+  some: ServiceWhereInput
+}
+
+input ServiceOrderByInput {
+  environnement_id: SortOrder
+  id: SortOrder
+  name: SortOrder
+  url: SortOrder
+}
+
+input ServiceScalarWhereInput {
+  AND: [ServiceScalarWhereInput!]
+  NOT: [ServiceScalarWhereInput!]
+  OR: [ServiceScalarWhereInput!]
+  environnement_id: IntNullableFilter
+  id: IntFilter
+  name: StringNullableFilter
+  url: StringNullableFilter
+}
+
+input ServiceUpdateInput {
+  environnement: EnvironnementUpdateOneWithoutServicesInput
+  name: NullableStringFieldUpdateOperationsInput
+  url: NullableStringFieldUpdateOperationsInput
+}
+
+input ServiceUpdateManyMutationInput {
+  name: NullableStringFieldUpdateOperationsInput
+  url: NullableStringFieldUpdateOperationsInput
+}
+
+input ServiceUpdateManyWithWhereWithoutEnvironnementInput {
+  data: ServiceUpdateManyMutationInput!
+  where: ServiceScalarWhereInput!
+}
+
+input ServiceUpdateManyWithoutEnvironnementInput {
+  connect: [ServiceWhereUniqueInput!]
+  connectOrCreate: [ServiceCreateOrConnectWithoutEnvironnementInput!]
+  create: [ServiceCreateWithoutEnvironnementInput!]
+  createMany: ServiceCreateManyEnvironnementInputEnvelope
+  delete: [ServiceWhereUniqueInput!]
+  deleteMany: [ServiceScalarWhereInput!]
+  disconnect: [ServiceWhereUniqueInput!]
+  set: [ServiceWhereUniqueInput!]
+  update: [ServiceUpdateWithWhereUniqueWithoutEnvironnementInput!]
+  updateMany: [ServiceUpdateManyWithWhereWithoutEnvironnementInput!]
+  upsert: [ServiceUpsertWithWhereUniqueWithoutEnvironnementInput!]
+}
+
+input ServiceUpdateWithWhereUniqueWithoutEnvironnementInput {
+  data: ServiceUpdateWithoutEnvironnementInput!
+  where: ServiceWhereUniqueInput!
+}
+
+input ServiceUpdateWithoutEnvironnementInput {
+  name: NullableStringFieldUpdateOperationsInput
+  url: NullableStringFieldUpdateOperationsInput
+}
+
+input ServiceUpsertWithWhereUniqueWithoutEnvironnementInput {
+  create: ServiceCreateWithoutEnvironnementInput!
+  update: ServiceUpdateWithoutEnvironnementInput!
+  where: ServiceWhereUniqueInput!
+}
+
+input ServiceWhereInput {
+  AND: [ServiceWhereInput!]
+  NOT: [ServiceWhereInput!]
+  OR: [ServiceWhereInput!]
+  environnement: EnvironnementWhereInput
+  environnement_id: IntNullableFilter
+  id: IntFilter
+  name: StringNullableFilter
+  url: StringNullableFilter
+}
+
+input ServiceWhereUniqueInput {
+  id: Int
 }
 
 enum SortOrder {

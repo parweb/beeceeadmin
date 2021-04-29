@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { Button } from '@salesforce/design-system-react';
 
-import { $modalConfirmation, $roleSelected, $documentsCourriers } from 'state';
+import { $modalConfirmation, $roleSelected, $documentsCourriers } from 'states';
 
 const Done = ({ label, onClick }) => {
   const [clicked, setClicked] = useState(false);
