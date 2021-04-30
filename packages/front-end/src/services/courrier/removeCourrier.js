@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const removeCourrier = async id => {
+const removeCourrier = async (url, id) => {
   try {
     const variables = {
       where: { id }
     };
 
     const { data: result } = await axios
-      .post(`${process.env.REACT_APP_API}/graphql`, {
+      .post(`${url}/graphql`, {
         variables,
         query: `mutation removeCourrier($where: CourrierWhereUniqueInput!) {
           deleteOneCourrier(where: $where) {

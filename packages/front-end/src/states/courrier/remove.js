@@ -1,9 +1,11 @@
-import { $courrier } from 'states';
+import { $courrier, $service } from 'states';
 import { removeCourrier, allCourriers } from 'services';
 
-const remove = id => async ({ set }) => {
-  await removeCourrier(id);
-  const courriers = await allCourriers();
+const remove = id => async ({ set, snapshot }) => {
+  const service = await snapshot.getPromise($service.current('bca-admin-api'));
+
+  await removeCourrier(service.url, id);
+  const courriers = await allCourriers(service.url);
 
   set($courrier.list, courriers);
 };

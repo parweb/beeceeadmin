@@ -1,10 +1,23 @@
-import { atom } from 'recoil';
+import { selector, atomFamily } from 'recoil';
 
+import { $service, $value } from 'states';
 import { allCourriers } from 'services';
 
-const list = atom({
+const $proxy = atomFamily({
+  key: 'courrier.list.proxy',
+  default: url => allCourriers(url)
+});
+
+const list = selector({
   key: 'courrier.list',
-  default: allCourriers()
+  get: ({ get }) => {
+    const service = get($service.current('bca-admin-api'));
+    return get($proxy(service.url));
+  },
+  set: ({ set, get }, value) => {
+    const service = get($service.current('bca-admin-api'));
+    set($proxy(service.url), value);
+  }
 });
 
 export default list;

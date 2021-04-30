@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const createCourrier = async data => {
+const createCourrier = async (url, data) => {
   try {
     const variables = { data };
 
     const { data: result } = await axios
-      .post(`${process.env.REACT_APP_API}/graphql`, {
+      .post(`${url}/graphql`, {
         variables,
         query: `mutation createCourrier($data: CourrierCreateInput!) {
           createOneCourrier(data: $data) {
