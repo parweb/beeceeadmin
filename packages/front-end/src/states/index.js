@@ -9,6 +9,8 @@ export * as $service from './service';
 export * as $group from './group';
 export * as $courrier from './courrier';
 export * as $extension from './extension';
+export * as $notification from './notification';
+export * as $position from './position';
 
 export { default as $documentsCourriers } from './$documentsCourriers';
 export { default as $modalConfirmation } from './$modalConfirmation';

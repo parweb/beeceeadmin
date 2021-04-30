@@ -41,7 +41,7 @@ const EnvironnementList = () => {
 
         <MenuDivider />
 
-        <MenuItem onClick={() => openModal()} icon={<SettingsIcon />}>
+        <MenuItem onClick={openModal} icon={<SettingsIcon />}>
           Configurer
         </MenuItem>
       </MenuList>

@@ -57,11 +57,11 @@ const Container = styled.label`
   }
 `;
 
-const Switch = ({ value, onChange = () => {} }) => {
+const Switch = ({ id, value, onChange = () => {} }) => {
   return (
     <Container>
       <input
-        id="change-assure"
+        id={id}
         type="checkbox"
         class="toggle-check-input"
         name="isAssure"

@@ -1,39 +1,53 @@
-// import { Suspense } from 'react';
 import { useRecoilValue } from 'recoil';
-// import styled from 'styled-components';
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
+import { useForm } from 'react-hook-form';
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 
-// import { Grid, Sidebar, Main } from 'layout';
-// import { BcasignClientList, BcasignClientEditor } from 'application';
+import {
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Flex,
+  Box,
+  IconButton
+} from '@chakra-ui/react';
+
 import { $client } from 'states';
 import { useParams } from 'hooks';
+import { Input } from 'layout';
+import { BcasignNotificationList, BcasignPositionList } from 'application';
 
 const ClientEditor = () => {
   const { id } = useParams();
   const client = useRecoilValue($client.read(id));
+  const { register } = useForm();
 
   if (!id) return null;
 
   return (
     <>
+      <form>
+        <Input placeholder="id" {...register('id')} />
+        <Input
+          placeholder="signedDocPattern"
+          {...register('signedDocPattern')}
+        />
+      </form>
+
       <Tabs>
         <TabList>
-          <Tab>One</Tab>
-          <Tab>Two</Tab>
-          <Tab>Three</Tab>
+          <Tab>notifications</Tab>
+          <Tab>positions</Tab>
         </TabList>
 
         <TabPanels>
           <TabPanel>
-            <p>one!</p>
+            <BcasignNotificationList clientId={id} />
           </TabPanel>
 
           <TabPanel>
-            <p>two!</p>
-          </TabPanel>
-
-          <TabPanel>
-            <p>three!</p>
+            <BcasignPositionList clientId={id} />
           </TabPanel>
         </TabPanels>
       </Tabs>
