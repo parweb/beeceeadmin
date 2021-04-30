@@ -135,8 +135,6 @@ const NotificationModal = ({ code }) => {
       </FormControl>
 
       <Button type="submit">Enregistrer</Button>
-
-      {/*<pre>{JSON.stringify(data, null, 2)}</pre>*/}
     </form>
   );
 };

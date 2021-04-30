@@ -1,16 +1,15 @@
 import { useRecoilValue } from 'recoil';
 import { useForm } from 'react-hook-form';
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 
 import {
+  Box,
   Tabs,
   TabList,
   TabPanels,
   Tab,
   TabPanel,
-  Flex,
-  Box,
-  IconButton
+  FormControl,
+  FormLabel
 } from '@chakra-ui/react';
 
 import { $client } from 'states';
@@ -27,13 +26,27 @@ const ClientEditor = () => {
 
   return (
     <>
-      <form>
-        <Input placeholder="id" {...register('id')} />
-        <Input
-          placeholder="signedDocPattern"
-          {...register('signedDocPattern')}
-        />
-      </form>
+      <Box p={2} as="form">
+        <FormControl id="id">
+          <FormLabel>id</FormLabel>
+          <Input
+            id="id"
+            placeholder="id"
+            defaultValue={client.id}
+            {...register('id')}
+          />
+        </FormControl>
+
+        <FormControl id="signedDocPattern">
+          <FormLabel>signedDocPattern</FormLabel>
+          <Input
+            id="signedDocPattern"
+            placeholder="signedDocPattern"
+            defaultValue={client.signedDocPattern}
+            {...register('signedDocPattern')}
+          />
+        </FormControl>
+      </Box>
 
       <Tabs>
         <TabList>
@@ -51,8 +64,6 @@ const ClientEditor = () => {
           </TabPanel>
         </TabPanels>
       </Tabs>
-
-      <pre>{JSON.stringify(client, null, 2)}</pre>
     </>
   );
 };

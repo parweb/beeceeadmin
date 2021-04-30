@@ -4,8 +4,10 @@ import { $position } from 'states';
 
 const read = selectorFamily({
   key: 'position.read',
-  get: code => ({ get }) =>
-    get($position.list)?.find(position => position.code === String(code)) ?? {}
+  get: codeCourrier => ({ get }) =>
+    get($position.list)?.find(
+      position => position.codeCourrier === String(codeCourrier)
+    ) ?? {}
 });
 
 export default read;

@@ -4,14 +4,14 @@ import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 
 import { $position } from 'states';
 
-const PositionItem = ({ code }) => {
-  const { description } = useRecoilValue($position.read(code));
-  const openModal = useSetRecoilState($position.modal(code));
+const PositionItem = ({ codeCourrier }) => {
+  const { description } = useRecoilValue($position.read(codeCourrier));
+  const openModal = useSetRecoilState($position.modal(codeCourrier));
 
   return (
     <Flex>
       <Box w="200px">
-        <span>{code}</span>
+        <span>{codeCourrier}</span>
       </Box>
       <Box>
         <span>{description}</span>

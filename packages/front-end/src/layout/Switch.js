@@ -63,14 +63,14 @@ const Switch = ({ id, value, onChange = () => {} }) => {
       <input
         id={id}
         type="checkbox"
-        class="toggle-check-input"
+        className="toggle-check-input"
         name="isAssure"
         checked={value}
         onChange={e => {
           onChange(e.target.checked);
         }}
       />
-      <span class="toggle-check-text"></span>
+      <span className="toggle-check-text"></span>
     </Container>
   );
 };

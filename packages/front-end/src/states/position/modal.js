@@ -5,18 +5,18 @@ import { BcasignPositionModal } from 'application';
 
 const modal = selectorFamily({
   key: 'position.modal',
-  get: code => ({ get }) => {
+  get: codeCourrier => ({ get }) => {
     const modal = get($modal);
 
     return {
       ...modal,
-      content: <BcasignPositionModal code={code} />,
+      content: <BcasignPositionModal codeCourrier={codeCourrier} />,
       size: 'xl',
       scrollBehavior: 'inside'
     };
   },
-  set: code => ({ set, get }) => {
-    const modal = get($position.modal(code));
+  set: codeCourrier => ({ set, get }) => {
+    const modal = get($position.modal(codeCourrier));
     set($modal, state => ({ ...state, ...modal, isOpen: true }));
   }
 });

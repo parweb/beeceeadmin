@@ -26,7 +26,7 @@ const Client = () => {
 
         <Main>
           <Suspense fallback={<div>chargement</div>}>
-            <pre>{JSON.stringify({ environnement }, null, 2)}</pre>
+            {/*<pre>{JSON.stringify({ environnement }, null, 2)}</pre>*/}
             <BcasignClientEditor />
           </Suspense>
         </Main>

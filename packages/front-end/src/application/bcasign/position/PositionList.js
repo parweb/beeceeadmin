@@ -8,8 +8,11 @@ const PositionList = ({ clientId }) => {
 
   return (
     <>
-      {client?.signPositions?.map(({ code }) => (
-        <BcasignPositionItem key={`BcasignPositionItem-${code}`} code={code} />
+      {client?.signPositions?.map(({ codeCourrier }) => (
+        <BcasignPositionItem
+          key={`BcasignPositionItem-${codeCourrier}`}
+          codeCourrier={codeCourrier}
+        />
       ))}
     </>
   );
