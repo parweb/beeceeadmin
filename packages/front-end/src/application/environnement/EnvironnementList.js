@@ -14,6 +14,7 @@ import { $environnement } from 'states';
 
 const EnvironnementList = () => {
   const openModal = useSetRecoilState($environnement.modal);
+
   const [selected, selectEnvironnement] = useRecoilState(
     $environnement.selected
   );

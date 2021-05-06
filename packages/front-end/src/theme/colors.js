@@ -12,11 +12,11 @@ const colors = {
   },
   white: {
     primary: '#fff'
-  },
-  brand: {
-    yellow: 'yellow.primary',
-    black: 'black.primary'
   }
+  // brand: {
+  //   yellow: 'yellow.primary',
+  //   black: 'black.primary'
+  // }
 };
 
 export default colors;

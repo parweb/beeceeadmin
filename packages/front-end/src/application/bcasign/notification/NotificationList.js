@@ -8,9 +8,9 @@ const NotificationList = ({ clientId }) => {
 
   return (
     <>
-      {client?.callbackChannels?.map(({ code }) => (
+      {client?.callbackChannels?.map(({ code, description }) => (
         <BcasignNotificationItem
-          key={`BcasignNotificationItem-${code}`}
+          key={`BcasignNotificationItem-${code}-${description}`}
           code={code}
         />
       ))}

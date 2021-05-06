@@ -11,7 +11,7 @@ const NotificationModal = ({ code }) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = fields => {
-    console.log(fields);
+    debugger;
   };
 
   return (

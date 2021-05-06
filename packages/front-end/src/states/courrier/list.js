@@ -1,6 +1,6 @@
 import { selector, atomFamily } from 'recoil';
 
-import { $service, $value } from 'states';
+import { $service } from 'states';
 import { allCourriers } from 'services';
 
 const $proxy = atomFamily({

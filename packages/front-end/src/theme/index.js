@@ -8,7 +8,7 @@ const theme = extendTheme({
   breakpoints,
   colors,
   components,
-  shadows: {  outline: 'transparent' }
+  shadows: { outline: 'transparent' }
 });
 
 export default theme;

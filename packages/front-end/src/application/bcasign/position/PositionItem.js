@@ -10,15 +10,17 @@ const PositionItem = ({ codeCourrier }) => {
 
   return (
     <Flex>
-      <Box w="200px">
-        <span>{codeCourrier}</span>
-      </Box>
-      <Box>
-        <span>{description}</span>
-      </Box>
-      <Box>
+      <Box d="flex" alignItems="center" justifyContent="flex-start">
         <IconButton onClick={() => {}} icon={<DeleteIcon />} />
         <IconButton onClick={openModal} icon={<EditIcon />} />
+      </Box>
+
+      <Box d="flex" alignItems="center" justifyContent="flex-start" w="200px">
+        <span>{codeCourrier}</span>
+      </Box>
+
+      <Box d="flex" alignItems="center" justifyContent="flex-start">
+        <span>{description}</span>
       </Box>
     </Flex>
   );

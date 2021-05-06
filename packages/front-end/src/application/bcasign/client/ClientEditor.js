@@ -1,69 +1,26 @@
-import { useRecoilValue } from 'recoil';
-import { useForm } from 'react-hook-form';
+import { useState, lazy } from 'react';
 
-import {
-  Box,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  FormControl,
-  FormLabel
-} from '@chakra-ui/react';
+import { ButtonGroup } from 'layout';
 
-import { $client } from 'states';
-import { useParams } from 'hooks';
-import { Input } from 'layout';
-import { BcasignNotificationList, BcasignPositionList } from 'application';
+const editors = {
+  json: lazy(() => import('./ClientEditorJson')),
+  form: lazy(() => import('./ClientEditorForm'))
+};
 
 const ClientEditor = () => {
-  const { id } = useParams();
-  const client = useRecoilValue($client.read(id));
-  const { register } = useForm();
-
-  if (!id) return null;
+  const [editorType, setEditorType] = useState('form');
+  const Component = editors[editorType];
 
   return (
     <>
-      <Box p={2} as="form">
-        <FormControl id="id">
-          <FormLabel>id</FormLabel>
-          <Input
-            id="id"
-            placeholder="id"
-            defaultValue={client.id}
-            {...register('id')}
-          />
-        </FormControl>
+      <ButtonGroup
+        name={'type'}
+        options={['form', 'json']}
+        value={editorType}
+        onChange={setEditorType}
+      />
 
-        <FormControl id="signedDocPattern">
-          <FormLabel>signedDocPattern</FormLabel>
-          <Input
-            id="signedDocPattern"
-            placeholder="signedDocPattern"
-            defaultValue={client.signedDocPattern}
-            {...register('signedDocPattern')}
-          />
-        </FormControl>
-      </Box>
-
-      <Tabs>
-        <TabList>
-          <Tab>notifications</Tab>
-          <Tab>positions</Tab>
-        </TabList>
-
-        <TabPanels>
-          <TabPanel>
-            <BcasignNotificationList clientId={id} />
-          </TabPanel>
-
-          <TabPanel>
-            <BcasignPositionList clientId={id} />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+      <Component />
     </>
   );
 };

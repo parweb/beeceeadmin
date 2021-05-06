@@ -14,9 +14,9 @@ const modal = selector({
       scrollBehavior: 'inside'
     };
   },
-  set: ({ set, get }) => {
+  set: ({ set, get }, options) => {
     const modal = get($environnement.modal);
-    set($modal, state => ({ ...state, ...modal, isOpen: true }));
+    set($modal, state => ({ ...state, ...modal, isOpen: true, ...options }));
   }
 });
 

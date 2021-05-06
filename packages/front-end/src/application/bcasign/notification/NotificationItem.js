@@ -9,16 +9,18 @@ const NotificationItem = ({ code }) => {
   const openModal = useSetRecoilState($notification.modal(code));
 
   return (
-    <Flex>
-      <Box w="200px">
-        <span>{code}</span>
-      </Box>
-      <Box>
-        <span>{description}</span>
-      </Box>
-      <Box>
+    <Flex gap="10px">
+      <Box d="flex" alignItems="center" justifyContent="flex-start">
         <IconButton onClick={() => {}} icon={<DeleteIcon />} />
         <IconButton onClick={openModal} icon={<EditIcon />} />
+      </Box>
+
+      <Box d="flex" alignItems="center" justifyContent="flex-start" w="200px">
+        <span>{code}</span>
+      </Box>
+
+      <Box d="flex" alignItems="center" justifyContent="flex-start">
+        <span>{description}</span>
       </Box>
     </Flex>
   );

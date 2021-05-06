@@ -5,8 +5,6 @@ const remove = id => async ({ set }) => {
   await removeGroup(id);
   const groups = await allGroups();
 
-  console.log({ groups });
-
   set($group.list, groups);
 };
 
