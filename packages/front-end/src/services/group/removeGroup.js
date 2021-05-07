@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const removeGroup = async id => {
+const removeGroup = async (url, id) => {
   try {
     const variables = {
       where: { id }
     };
 
     const { data: result } = await axios
-      .post(`${process.env.REACT_APP_API}/graphql`, {
+      .post(`${url}/graphql`, {
         variables,
         query: `mutation removeGroup($where: GroupWhereUniqueInput!) {
           deleteOneGroup(where: $where) {

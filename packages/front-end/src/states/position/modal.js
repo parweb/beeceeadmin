@@ -15,9 +15,9 @@ const modal = selectorFamily({
       scrollBehavior: 'inside'
     };
   },
-  set: codeCourrier => ({ set, get }) => {
+  set: codeCourrier => ({ set, get }, { isOpen = true }) => {
     const modal = get($position.modal(codeCourrier));
-    set($modal, state => ({ ...state, ...modal, isOpen: true }));
+    set($modal, state => ({ ...state, ...modal, isOpen }));
   }
 });
 

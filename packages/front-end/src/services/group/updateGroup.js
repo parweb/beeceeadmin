@@ -1,12 +1,14 @@
 import axios from 'axios';
 
-const updateGroup = async (id, data) => {
+const updateGroup = async (url, id, data) => {
   try {
     const variables = { data, where: { id } };
 
-    if (data.display) variables.data.display = { set: data.display };
-    if (data.size) variables.data.size = { set: data.size };
-    if (data.upload) variables.data.upload = { set: data.upload };
+    if ([true, false].includes(data?.display))
+      variables.data.display = { set: data.display };
+    if ([true, false].includes(data?.upload))
+      variables.data.upload = { set: data.upload };
+    if (data?.size) variables.data.size = { set: data.size };
 
     if ('extension' in data) {
       variables.data['extensions'] = {
@@ -17,7 +19,7 @@ const updateGroup = async (id, data) => {
     }
 
     const { data: result } = await axios
-      .post(`${process.env.REACT_APP_API}/graphql`, {
+      .post(`${url}/graphql`, {
         variables,
         query: `mutation updateGroup(
           $data: GroupUpdateInput!

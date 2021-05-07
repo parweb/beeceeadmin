@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { useForm } from 'react-hook-form';
+import produce from 'immer';
 
 import {
   Box,
@@ -13,29 +13,39 @@ import {
 } from '@chakra-ui/react';
 
 import { $client } from 'states';
-import { useParams } from 'hooks';
+import { useParams, useMutation } from 'hooks';
 import { Input } from 'layout';
 import { BcasignNotificationList, BcasignPositionList } from 'application';
 
 const ClientEditorForm = () => {
   const { id } = useParams();
   const client = useRecoilValue($client.read(id));
-  const { register, handleSubmit } = useForm({ mode: 'onChange' });
+  const [updateClient] = useMutation($client.update(id));
 
-  const onSubmit = console.log;
+  const onChange = e => {
+    const { value, name } = e.target;
+
+    updateClient(
+      produce(client, draft => {
+        if (name === 'id') draft[name] = value;
+        if (name === 'signedDocPattern') draft[name] = value;
+      })
+    );
+  };
 
   if (!id) return null;
 
   return (
     <>
-      <form style={{ padding: '0.5rem' }} onSubmit={handleSubmit(onSubmit)}>
+      <Box p={2}>
         <FormControl id="id">
           <FormLabel>id</FormLabel>
           <Input
             id="id"
+            name="id"
             placeholder="id"
-            defaultValue={client.id}
-            {...register('id')}
+            value={client.id}
+            onChange={onChange}
           />
         </FormControl>
 
@@ -43,14 +53,14 @@ const ClientEditorForm = () => {
           <FormLabel>signedDocPattern</FormLabel>
           <Input
             id="signedDocPattern"
+            name="signedDocPattern"
             placeholder="signedDocPattern"
-            defaultValue={client.signedDocPattern}
-            {...register('signedDocPattern')}
+            value={client.signedDocPattern}
+            onChange={onChange}
           />
         </FormControl>
+      </Box>
 
-        <button type="submit">ok</button>
-      </form>
       <Tabs>
         <TabList>
           <Tab>notifications</Tab>

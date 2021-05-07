@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const allExtensions = async () => {
+const allExtensions = async url => {
   try {
     const { data } = await axios
-      .post(`${process.env.REACT_APP_API}/graphql`, {
+      .post(`${url}/graphql`, {
         query: `{
           data: extensions(orderBy: [{ id: asc }]) {
             id

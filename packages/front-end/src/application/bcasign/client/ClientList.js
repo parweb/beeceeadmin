@@ -5,6 +5,7 @@ import { Box } from '@chakra-ui/react';
 import { GrAdd } from 'react-icons/gr';
 
 import { $client } from 'states';
+import { useMutation } from 'hooks';
 import { Button } from 'layout';
 
 const Link = styled(NavLink)`
@@ -42,11 +43,17 @@ const Link = styled(NavLink)`
 
 const ClientList = () => {
   const clients = useRecoilValue($client.list);
+  const [createClient] = useMutation($client.create);
 
   return (
     <>
       <Box m={1}>
-        <Button isFullWidth leftIcon={<GrAdd />} variant="solid">
+        <Button
+          onClick={() => createClient()}
+          isFullWidth
+          leftIcon={<GrAdd />}
+          variant="solid"
+        >
           Ajouter un client
         </Button>
       </Box>

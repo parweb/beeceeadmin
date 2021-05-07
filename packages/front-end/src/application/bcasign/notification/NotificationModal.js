@@ -1,16 +1,22 @@
 import { useRecoilValue } from 'recoil';
 import { useForm } from 'react-hook-form';
-import { /*Switch,*/ FormControl, FormLabel } from '@chakra-ui/react';
+import { /*Switch,*/ Flex, FormControl, FormLabel } from '@chakra-ui/react';
 
 import { $notification } from 'states';
 import { Input, Button, Switch } from 'layout';
 
 const NotificationModal = ({ code }) => {
   const data = useRecoilValue($notification.read(code));
+  console.log({ data });
 
   const { register, handleSubmit } = useForm();
 
   const onSubmit = fields => {
+    console.log({ fields });
+    const data = {
+      ...fields,
+      callbackDataTransform: JSON.parse(fields.callbackDataTransform)
+    };
     debugger;
   };
 
@@ -120,10 +126,57 @@ const NotificationModal = ({ code }) => {
 
       <FormControl id="callbackData">
         <FormLabel>callbackData</FormLabel>
-        <Input
-          defaultValue={JSON.stringify(data.callbackData)}
-          {...register('callbackData')}
-        />
+
+        <div>
+          <div>
+            <FormLabel>cod_etape</FormLabel>
+            <Input
+              defaultValue={data?.callbackData?.cod_etape ?? ''}
+              {...register('callbackData.cod_etape')}
+            />
+          </div>
+          <div>
+            <FormLabel>cod_process</FormLabel>
+            <Input
+              defaultValue={data?.callbackData?.cod_process ?? ''}
+              {...register('callbackData.cod_process')}
+            />
+          </div>
+          <div>
+            <FormLabel>cod_tache</FormLabel>
+            <Input
+              defaultValue={data?.callbackData?.cod_tache ?? ''}
+              {...register('callbackData.cod_tache')}
+            />
+          </div>
+          <div>
+            <FormLabel>comment</FormLabel>
+            <Input
+              defaultValue={data?.callbackData?.comment ?? ''}
+              {...register('callbackData.comment')}
+            />
+          </div>
+          <div>
+            <FormControl display="flex" alignItems="center">
+              <FormLabel htmlFor="notifyResponse" mb="0">
+                ferme
+              </FormLabel>
+
+              <Switch
+                id="notifyResponse"
+                {...register('callbackData.ferme')}
+                value={data?.callbackData?.ferme ?? false}
+              />
+            </FormControl>
+          </div>
+          <div>
+            <FormLabel>num_dos</FormLabel>
+            <Input
+              defaultValue={data?.callbackData?.num_dos ?? ''}
+              {...register('callbackData.num_dos')}
+            />
+          </div>
+        </div>
       </FormControl>
 
       <FormControl id="callbackDataTransform">

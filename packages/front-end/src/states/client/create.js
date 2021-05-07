@@ -1,11 +1,28 @@
-import { $user } from 'states';
-import { createUser, allUsers } from 'services';
+import { $client, $service } from 'states';
+import { createClient, allClients } from 'services';
 
-const create = async ({ set }, user) => {
-  await createUser(user);
-  const users = await allUsers();
+const defaultClient = {
+  id: '',
+  signedDocPattern: '',
+  callbackChannels: [],
+  signPositions: [],
+  defaultSignPosition: {
+    rank: null,
+    page: -1,
+    x: 12,
+    y: 4,
+    height: 3.53,
+    width: 5.29
+  }
+};
 
-  set($user.list, users);
+const create = async ({ set, snapshot }, client = defaultClient) => {
+  const service = await snapshot.getPromise($service.current('bca-admin-api'));
+
+  await createClient(service.url, client);
+  const clients = await allClients(service.url);
+
+  set($client.list, clients);
 };
 
 export default create;

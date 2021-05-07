@@ -1,10 +1,10 @@
 import { selectorFamily } from 'recoil';
 
-import { $client } from 'states';
+import { $group } from 'states';
 
 const read = selectorFamily({
-  key: 'client.read',
-  get: id => ({ get }) => get($client.list).find(client => client.id === id)
+  key: 'group.read',
+  get: id => ({ get }) => get($group.list).find(group => group.id === id)
 });
 
 export default read;

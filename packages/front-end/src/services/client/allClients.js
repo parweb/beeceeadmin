@@ -1,5 +1,5 @@
-const allClients = () =>
-  fetch(`${process.env.REACT_APP_API}/clients`).then(async res => {
+const allClients = url =>
+  fetch(`${url}/clients`).then(async res => {
     const data = await res.json();
 
     if (res.status !== 200) {

@@ -4,9 +4,9 @@ import { $notification } from 'states';
 
 const read = selectorFamily({
   key: 'notification.read',
-  get: code => ({ get }) =>
+  get: id => ({ get }) =>
     get($notification.list)?.find(
-      notification => notification.code === String(code)
+      notification => notification.id === String(id)
     ) ?? {}
 });
 

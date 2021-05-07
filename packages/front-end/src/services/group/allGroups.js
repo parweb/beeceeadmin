@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const allGroups = async () => {
+const allGroups = async url => {
   try {
     const { data } = await axios
-      .post(`${process.env.REACT_APP_API}/graphql`, {
+      .post(`${url}/graphql`, {
         query: `{
           data: groups(orderBy: [{ id: asc }]) {
             id

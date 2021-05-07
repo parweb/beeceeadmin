@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { Checkbox } from '@salesforce/design-system-react';
 
 import { $group } from 'states';
 import { useMutation } from 'hooks';
 
 const GroupActionDisplay = ({ groupId, value = false }) => {
-  const [_value, setValue] = useState(value);
+  const { display } = useRecoilValue($group.read(groupId));
   const [updateGroup] = useMutation($group.update(groupId));
 
   return (
@@ -17,9 +17,8 @@ const GroupActionDisplay = ({ groupId, value = false }) => {
     >
       <Checkbox
         name="display"
-        checked={_value}
+        checked={display}
         onChange={e => {
-          setValue(e.target.checked);
           updateGroup({ display: e.target.checked });
         }}
       />

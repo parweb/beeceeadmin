@@ -4,12 +4,12 @@ import { useConfirmation, useToast, useMutation } from 'hooks';
 import { $group } from 'states';
 
 const GroupActionDelete = ({ groupId, name }) => {
-  const [deleteGroup] = useMutation($group.remove(groupId));
+  const [removeGroup] = useMutation($group.remove(groupId));
   const { addToast } = useToast();
 
   const onDone = async () => {
     try {
-      await deleteGroup();
+      await removeGroup();
 
       addToast({
         type: 'success',

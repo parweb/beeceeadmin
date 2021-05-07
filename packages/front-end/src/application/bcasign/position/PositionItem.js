@@ -3,15 +3,25 @@ import { Flex, Box, IconButton } from '@chakra-ui/react';
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 
 import { $position } from 'states';
+import { useMutation } from 'hooks';
 
 const PositionItem = ({ codeCourrier }) => {
-  const { description } = useRecoilValue($position.read(codeCourrier));
+  const { description } = useRecoilValue(
+    $position.readWidthDefault(codeCourrier)
+  );
   const openModal = useSetRecoilState($position.modal(codeCourrier));
+  const [removePosition] = useMutation($position.remove(codeCourrier));
+
+  const isDefault = codeCourrier === 'default';
 
   return (
     <Flex>
       <Box d="flex" alignItems="center" justifyContent="flex-start">
-        <IconButton onClick={() => {}} icon={<DeleteIcon />} />
+        <IconButton
+          visibility={isDefault && 'hidden'}
+          onClick={removePosition}
+          icon={<DeleteIcon />}
+        />
         <IconButton onClick={openModal} icon={<EditIcon />} />
       </Box>
 
