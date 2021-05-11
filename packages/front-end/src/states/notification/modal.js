@@ -5,18 +5,18 @@ import { BcasignNotificationModal } from 'application';
 
 const modal = selectorFamily({
   key: 'notification.modal',
-  get: code => ({ get }) => {
+  get: id => ({ get }) => {
     const modal = get($modal);
 
     return {
       ...modal,
-      content: <BcasignNotificationModal code={code} />,
+      content: <BcasignNotificationModal id={id} />,
       size: 'xl',
       scrollBehavior: 'inside'
     };
   },
-  set: code => ({ set, get }) => {
-    const modal = get($notification.modal(code));
+  set: id => ({ set, get }) => {
+    const modal = get($notification.modal(id));
     set($modal, state => ({ ...state, ...modal, isOpen: true }));
   }
 });

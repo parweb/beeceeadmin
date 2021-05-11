@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.label`
@@ -57,22 +58,22 @@ const Container = styled.label`
   }
 `;
 
-const Switch = ({ id, value, onChange = () => {} }) => {
+const Switch = forwardRef(({ id, defaultChecked, value, ...props }, ref) => {
   return (
     <Container>
       <input
+        ref={ref}
         id={id}
         type="checkbox"
         className="toggle-check-input"
         name="isAssure"
         checked={value}
-        onChange={e => {
-          onChange(e.target.checked);
-        }}
+        defaultChecked={defaultChecked}
+        {...props}
       />
       <span className="toggle-check-text"></span>
     </Container>
   );
-};
+});
 
 export default Switch;

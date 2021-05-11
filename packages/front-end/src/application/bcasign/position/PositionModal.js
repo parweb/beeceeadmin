@@ -1,4 +1,4 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { DeleteIcon, AddIcon } from '@chakra-ui/icons';
 
@@ -66,9 +66,7 @@ const PositionModal = ({ codeCourrier }) => {
                   onClick={() => {
                     updatePosition({
                       codeCourrier: data.codeCourrier,
-                      positions: data.positions.filter(
-                        (_, j) => console.log({ j, i }) || j !== i
-                      )
+                      positions: data.positions.filter((_, j) => j !== i)
                     });
                   }}
                   icon={<DeleteIcon />}

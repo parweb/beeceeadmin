@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const updateClient = async (url, id, data) => {
   try {
-    console.log({ data });
     const client = Object.entries(data).reduce((carry, [key, value]) => {
       if (key === 'signPositions') {
         carry['defaultSignPosition'] = value.find(
@@ -28,8 +27,6 @@ const updateClient = async (url, id, data) => {
 
       return { ...carry, [key]: value };
     }, {});
-
-    console.log({ client });
 
     await axios.put(`${url}/clients?id=${id}`, client);
   } catch (_) {

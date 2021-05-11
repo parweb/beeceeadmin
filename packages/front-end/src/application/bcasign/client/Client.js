@@ -9,9 +9,6 @@ const Container = styled.div`
 `;
 
 const Client = () => {
-  // const environnementId = useRecoilValue($environnement.selected);
-  // const environnement = useRecoilValue($environnement.read(environnementId));
-
   return (
     <Container>
       <Grid rows="1fr" columns="200px 1fr" style={{ height: '100vh' }}>

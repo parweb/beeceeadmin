@@ -1,19 +1,35 @@
+import { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import AceEditor from 'react-ace';
 import Beautify from 'ace-builds/src-noconflict/ext-beautify';
 
 import { $client } from 'states';
-import { useParams, useMutation } from 'hooks';
+import { useParams /*, useMutation*/ } from 'hooks';
 
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/theme-monokai';
 
 const ClientEditorJson = () => {
   const { id } = useParams();
-  const client = useRecoilValue($client.read(id));
-  const [updateClient] = useMutation($client.update(id));
+  const data = useRecoilValue($client.read(id));
+  // const [updateClient] = useMutation($client.update(id));
 
-  const json = JSON.stringify(client, null, 2);
+  const client = Object.entries(data).reduce(
+    (carry, [key, value]) =>
+      key === 'callbackChannels'
+        ? {
+            ...carry,
+            [key]: value.map(({ id, ...props }) => ({ ...props }))
+          }
+        : { ...carry, [key]: value },
+    {}
+  );
+
+  const [json, setJson] = useState('');
+
+  useEffect(() => {
+    setJson(JSON.stringify(client, null, 2));
+  }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!id) return null;
 
@@ -23,7 +39,8 @@ const ClientEditorJson = () => {
       mode="json"
       theme="monokai"
       onChange={value => {
-        updateClient(JSON.parse(value));
+        setJson(value);
+        // updateClient(JSON.parse(value));
       }}
       name="editor-json"
       width="100%"

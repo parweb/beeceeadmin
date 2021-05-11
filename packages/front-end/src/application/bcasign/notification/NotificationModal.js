@@ -1,191 +1,341 @@
 import { useRecoilValue } from 'recoil';
 import { useForm } from 'react-hook-form';
-import { /*Switch,*/ Flex, FormControl, FormLabel } from '@chakra-ui/react';
+import { FormControl, FormLabel } from '@chakra-ui/react';
 
 import { $notification } from 'states';
 import { Input, Button, Switch } from 'layout';
+import { useMutation } from 'hooks';
 
-const NotificationModal = ({ code }) => {
-  const data = useRecoilValue($notification.read(code));
-  console.log({ data });
-
+const NotificationModal = ({ id }) => {
   const { register, handleSubmit } = useForm();
+  const data = useRecoilValue($notification.read(id));
+  const [updateNotification] = useMutation($notification.update(id));
 
   const onSubmit = fields => {
-    console.log({ fields });
     const data = {
       ...fields,
-      callbackDataTransform: JSON.parse(fields.callbackDataTransform)
+      auto: JSON.parse(fields.auto),
+      messagePerDoc: JSON.parse(fields.messagePerDoc),
+      notifyReception: JSON.parse(fields.notifyReception),
+      notifyResponse: JSON.parse(fields.notifyResponse),
+      successOnly: JSON.parse(fields.successOnly),
+      callbackData: Object.fromEntries(
+        Object.entries({
+          cod_etape: fields?.callbackData?.cod_etape || null,
+          cod_process: fields?.callbackData?.cod_process || null,
+          cod_tache: fields?.callbackData?.cod_tache || null,
+          comment: fields?.callbackData?.comment || null,
+          num_dos: fields?.callbackData?.num_dos || null,
+          codeQualification: fields?.callbackData?.codeQualification || null,
+          documents: fields?.callbackData?.documents || null,
+          numDos: fields?.callbackData?.numDos || null,
+          typeDocument: fields?.callbackData?.typeDocument || null,
+
+          ferme: JSON.parse(fields?.callbackData?.ferme || null)
+        }).filter(([_, value]) => value !== null)
+      ),
+      authMethod: fields.authMethod || null,
+      username: fields.username || null,
+      password: fields.password || null
     };
-    debugger;
+
+    updateNotification(data);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormControl id="code">
-        <FormLabel>code</FormLabel>
-        <Input defaultValue={data.code} {...register('code')} />
-      </FormControl>
+      <FormControl>
+        <FormLabel htmlFor="code-client">code</FormLabel>
 
-      <FormControl id="description">
-        <FormLabel>description</FormLabel>
-        <Input defaultValue={data.description} {...register('description')} />
-      </FormControl>
-
-      <FormControl display="flex" alignItems="center">
-        <FormLabel htmlFor="auto" mb="0">
-          auto
-        </FormLabel>
-
-        <Switch id="auto" value={data.auto} />
-      </FormControl>
-
-      <FormControl display="flex" alignItems="center">
-        <FormLabel htmlFor="messagePerDoc" mb="0">
-          messagePerDoc
-        </FormLabel>
-
-        <Switch id="messagePerDoc" value={data.messagePerDoc} />
-      </FormControl>
-
-      <FormControl display="flex" alignItems="center">
-        <FormLabel htmlFor="notifyReception" mb="0">
-          notifyReception
-        </FormLabel>
-
-        <Switch id="notifyReception" value={data.notifyReception} />
-      </FormControl>
-
-      <FormControl display="flex" alignItems="center">
-        <FormLabel htmlFor="notifyResponse" mb="0">
-          notifyResponse
-        </FormLabel>
-
-        <Switch id="notifyResponse" value={data.notifyResponse} />
-      </FormControl>
-
-      <FormControl display="flex" alignItems="center">
-        <FormLabel htmlFor="successOnly" mb="0">
-          successOnly
-        </FormLabel>
-
-        <Switch id="successOnly" value={data.successOnly} />
-      </FormControl>
-
-      <FormControl id="callbackUrl">
-        <FormLabel>callbackUrl</FormLabel>
-        <Input defaultValue={data.callbackUrl} {...register('callbackUrl')} />
-      </FormControl>
-
-      <FormControl id="callbackDataType">
-        <FormLabel>callbackDataType</FormLabel>
         <Input
+          id="code-client"
+          defaultValue={data.code}
+          {...register('code')}
+        />
+      </FormControl>
+
+      <FormControl>
+        <FormLabel htmlFor="description">description</FormLabel>
+
+        <Input
+          id="description"
+          defaultValue={data.description}
+          {...register('description')}
+        />
+      </FormControl>
+
+      <FormControl display="flex" alignItems="center">
+        <FormLabel htmlFor="auto-client">auto</FormLabel>
+
+        <Switch
+          id="auto-client"
+          defaultChecked={data.auto}
+          {...register('auto')}
+        />
+      </FormControl>
+
+      <FormControl display="flex" alignItems="center">
+        <FormLabel htmlFor="messagePerDoc">messagePerDoc</FormLabel>
+
+        <Switch
+          id="messagePerDoc"
+          defaultChecked={data.messagePerDoc}
+          {...register('messagePerDoc')}
+        />
+      </FormControl>
+
+      <FormControl display="flex" alignItems="center">
+        <FormLabel htmlFor="notifyReception">notifyReception</FormLabel>
+
+        <Switch
+          id="notifyReception"
+          defaultChecked={data.notifyReception}
+          {...register('notifyReception')}
+        />
+      </FormControl>
+
+      <FormControl display="flex" alignItems="center">
+        <FormLabel htmlFor="notifyResponse">notifyResponse</FormLabel>
+
+        <Switch
+          id="notifyResponse"
+          defaultChecked={data.notifyResponse}
+          {...register('notifyResponse')}
+        />
+      </FormControl>
+
+      <FormControl display="flex" alignItems="center">
+        <FormLabel htmlFor="successOnly">successOnly</FormLabel>
+
+        <Switch
+          id="successOnly"
+          defaultChecked={data.successOnly}
+          {...register('successOnly')}
+        />
+      </FormControl>
+
+      <FormControl>
+        <FormLabel htmlFor="callbackUrl">callbackUrl</FormLabel>
+
+        <Input
+          id="callbackUrl"
+          defaultValue={data.callbackUrl}
+          {...register('callbackUrl')}
+        />
+      </FormControl>
+
+      <FormControl>
+        <FormLabel htmlFor="callbackDataType">callbackDataType</FormLabel>
+
+        <Input
+          id="callbackDataType"
           defaultValue={data.callbackDataType}
           {...register('callbackDataType')}
         />
       </FormControl>
 
-      <FormControl id="callbackResponseHandler">
-        <FormLabel>callbackResponseHandler</FormLabel>
+      <FormControl>
+        <FormLabel htmlFor="callbackResponseHandler">
+          callbackResponseHandler
+        </FormLabel>
+
         <Input
+          id="callbackResponseHandler"
           defaultValue={data.callbackResponseHandler}
           {...register('callbackResponseHandler')}
         />
       </FormControl>
 
-      <FormControl id="callbackResponseHandlerParams">
-        <FormLabel>callbackResponseHandlerParams</FormLabel>
+      <FormControl>
+        <FormLabel htmlFor="callbackResponseHandlerParams-url">
+          callbackResponseHandlerParams
+        </FormLabel>
+
         <Input
+          id="callbackResponseHandlerParams-url"
           defaultValue={data.callbackResponseHandlerParams?.url ?? ''}
           {...register('callbackResponseHandlerParams.url')}
         />
       </FormControl>
 
-      <FormControl id="username">
-        <FormLabel>username</FormLabel>
-        <Input defaultValue={data.username} {...register('username')} />
-      </FormControl>
+      <FormControl>
+        <FormLabel htmlFor="username">username</FormLabel>
 
-      <FormControl id="password">
-        <FormLabel>password</FormLabel>
-        <Input defaultValue={data.password} {...register('password')} />
-      </FormControl>
-
-      <FormControl id="authMethod">
-        <FormLabel>authMethod</FormLabel>
-        <Input defaultValue={data.authMethod} {...register('authMethod')} />
-      </FormControl>
-
-      <FormControl id="callbackRequiredParams">
-        <FormLabel>callbackRequiredParams</FormLabel>
         <Input
-          defaultValue={data.callbackRequiredParams}
-          {...register('callbackRequiredParams')}
+          id="username"
+          defaultValue={data.username}
+          {...register('username')}
         />
       </FormControl>
 
+      <FormControl>
+        <FormLabel htmlFor="password">password</FormLabel>
+
+        <Input
+          id="password"
+          defaultValue={data.password}
+          {...register('password')}
+        />
+      </FormControl>
+
+      <FormControl>
+        <FormLabel htmlFor="authMethod">authMethod</FormLabel>
+
+        <Input
+          id="authMethod"
+          defaultValue={data.authMethod}
+          {...register('authMethod')}
+        />
+      </FormControl>
+
+      {/* <FormControl>
+        <FormLabel htmlFor="callbackRequiredParams">
+          callbackRequiredParams
+        </FormLabel>
+
+        <Select
+          id="callbackRequiredParams"
+          multiple
+          options={data.callbackRequiredParams.map(value => ({
+            id: value,
+            label: value
+          }))}
+          value={data.callbackRequiredParams.map(value => ({
+            id: value,
+            label: value
+          }))}
+          variant="inline-listbox"
+          {...register('callbackRequiredParams')}
+        />
+      </FormControl>*/}
+
       <FormControl id="callbackData">
-        <FormLabel>callbackData</FormLabel>
+        <FormLabel htmlFor="callbackData-cod_etape">callbackData</FormLabel>
 
         <div>
           <div>
-            <FormLabel>cod_etape</FormLabel>
+            <FormLabel htmlFor="callbackData-cod_etape">cod_etape</FormLabel>
+
             <Input
+              id="callbackData-cod_etape"
               defaultValue={data?.callbackData?.cod_etape ?? ''}
               {...register('callbackData.cod_etape')}
             />
           </div>
+
           <div>
-            <FormLabel>cod_process</FormLabel>
+            <FormLabel htmlFor="callbackData-cod_process">
+              cod_process
+            </FormLabel>
+
             <Input
+              id="callbackData-cod_process"
               defaultValue={data?.callbackData?.cod_process ?? ''}
               {...register('callbackData.cod_process')}
             />
           </div>
+
           <div>
-            <FormLabel>cod_tache</FormLabel>
+            <FormLabel htmlFor="callbackData-cod_tache">cod_tache</FormLabel>
+
             <Input
+              id="callbackData-cod_tache"
               defaultValue={data?.callbackData?.cod_tache ?? ''}
               {...register('callbackData.cod_tache')}
             />
           </div>
+
           <div>
-            <FormLabel>comment</FormLabel>
+            <FormLabel htmlFor="callbackData-comment">comment</FormLabel>
+
             <Input
+              id="callbackData-comment"
               defaultValue={data?.callbackData?.comment ?? ''}
               {...register('callbackData.comment')}
             />
           </div>
+
           <div>
             <FormControl display="flex" alignItems="center">
-              <FormLabel htmlFor="notifyResponse" mb="0">
-                ferme
-              </FormLabel>
+              <FormLabel htmlFor="callbackData-ferme">ferme</FormLabel>
 
               <Switch
-                id="notifyResponse"
+                id="callbackData-ferme"
+                defaultChecked={data?.callbackData?.ferme ?? false}
                 {...register('callbackData.ferme')}
-                value={data?.callbackData?.ferme ?? false}
               />
             </FormControl>
           </div>
+
           <div>
-            <FormLabel>num_dos</FormLabel>
+            <FormLabel htmlFor="callbackData-num_dos">num_dos</FormLabel>
+
             <Input
+              id="callbackData-num_dos"
               defaultValue={data?.callbackData?.num_dos ?? ''}
               {...register('callbackData.num_dos')}
+            />
+          </div>
+
+          <div>
+            <FormLabel htmlFor="callbackData-codeQualification">
+              codeQualification
+            </FormLabel>
+
+            <Input
+              id="callbackData-codeQualification"
+              defaultValue={data?.callbackData?.codeQualification ?? ''}
+              {...register('callbackData.codeQualification')}
+            />
+          </div>
+
+          <div>
+            <FormLabel htmlFor="callbackData-documents">documents</FormLabel>
+
+            <Input
+              id="callbackData-documents"
+              defaultValue={data?.callbackData?.documents ?? ''}
+              {...register('callbackData.documents')}
+            />
+          </div>
+
+          <div>
+            <FormLabel htmlFor="callbackData-numDos">numDos</FormLabel>
+
+            <Input
+              id="callbackData-numDos"
+              defaultValue={data?.callbackData?.numDos ?? ''}
+              {...register('callbackData.numDos')}
+            />
+          </div>
+
+          <div>
+            <FormLabel htmlFor="callbackData-typeDocument">
+              typeDocument
+            </FormLabel>
+
+            <Input
+              id="callbackData-typeDocument"
+              defaultValue={data?.callbackData?.typeDocument ?? ''}
+              {...register('callbackData.typeDocument')}
             />
           </div>
         </div>
       </FormControl>
 
-      <FormControl id="callbackDataTransform">
-        <FormLabel>callbackDataTransform</FormLabel>
-        <Input
-          defaultValue={JSON.stringify(data.callbackDataTransform)}
+      {/*<FormControl>
+        <FormLabel id="callbackDataTransform">callbackDataTransform</FormLabel>
+
+        <Select
+          id="callbackDataTransform"
+          options={[]}
+          defaultValue={data.callbackDataTransform.map(value => ({
+            id: value,
+            label: value
+          }))}
           {...register('callbackDataTransform')}
         />
-      </FormControl>
+      </FormControl>*/}
 
       <Button type="submit">Enregistrer</Button>
     </form>
