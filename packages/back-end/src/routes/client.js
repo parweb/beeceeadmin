@@ -1,10 +1,15 @@
 const axios = require('axios');
 const { nanoid } = require('nanoid');
 
+const getService = require('../helpers/getService');
+
 module.exports = (app, opts, next) => {
-  app.get('/clients', (request, reply) => {
+  app.get('/clients', async (request, reply) => {
+    const { environnement } = request.query;
+    const service = await getService(environnement, 'bca-sign');
+
     axios
-      .get(process.env.API_BCA_SIGN + '/clients')
+      .get(service.url + '/clients')
       .then(({ data }) => {
         console.log({ data });
         reply.code(200).send(
@@ -29,12 +34,15 @@ module.exports = (app, opts, next) => {
       });
   });
 
-  app.put('/clients', (request, reply) => {
+  app.put('/clients', async (request, reply) => {
     const { id } = request.query;
     const data = request.body;
 
+    const { environnement } = request.query;
+    const service = await getService(environnement, 'bca-sign');
+
     axios
-      .put(process.env.API_BCA_SIGN + '/clients/' + id, data)
+      .put(service.url + '/clients/' + id, data)
       .then(({ data }) => {
         reply.code(200).send(data);
       })
@@ -44,11 +52,14 @@ module.exports = (app, opts, next) => {
       });
   });
 
-  app.post('/clients', (request, reply) => {
+  app.post('/clients', async (request, reply) => {
     const data = request.body;
 
+    const { environnement } = request.query;
+    const service = await getService(environnement, 'bca-sign');
+
     axios
-      .post(process.env.API_BCA_SIGN + '/clients', data)
+      .post(service.url + '/clients', data)
       .then(({ data }) => {
         reply.code(200).send(data);
       })

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const updateClient = async (url, id, data) => {
+const updateClient = async (service, id, data) => {
   try {
     const client = Object.entries(data).reduce((carry, [key, value]) => {
       if (key === 'signPositions') {
@@ -28,7 +28,7 @@ const updateClient = async (url, id, data) => {
       return { ...carry, [key]: value };
     }, {});
 
-    await axios.put(`${url}/clients?id=${id}`, client);
+    await axios.put(`${service.url}/clients?id=${id}`, client);
   } catch (_) {
     return null;
   }

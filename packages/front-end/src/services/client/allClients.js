@@ -1,5 +1,7 @@
-const allClients = url =>
-  fetch(`${url}/clients`).then(async res => {
+const allClients = service =>
+  fetch(
+    `${service.url}/clients?environnement=${service.environnement.name}`
+  ).then(async res => {
     const data = await res.json();
 
     if (res.status !== 200) {

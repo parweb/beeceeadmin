@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const createClient = async (url, data) => {
+const createClient = async (service, data) => {
   try {
-    await axios.post(`${url}/clients`, data);
+    await axios.post(`${service.url}/clients`, data);
   } catch (_) {
     return null;
   }

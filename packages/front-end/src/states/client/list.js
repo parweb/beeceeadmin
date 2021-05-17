@@ -5,18 +5,18 @@ import { allClients } from 'services';
 
 const $proxy = atomFamily({
   key: 'client.list.proxy',
-  default: url => allClients(url)
+  default: service => allClients(service)
 });
 
 const list = selector({
   key: 'client.list',
   get: ({ get }) => {
     const service = get($service.current('bca-admin-api'));
-    return get($proxy(service.url));
+    return get($proxy(service));
   },
   set: ({ set, get }, value) => {
     const service = get($service.current('bca-admin-api'));
-    set($proxy(service.url), value);
+    set($proxy(service), value);
   }
 });
 

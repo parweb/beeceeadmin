@@ -12,6 +12,9 @@ const allEnvironnements = async () => {
               id
               name
               url
+              environnement {
+                name
+              }
             }
           }
         }`
