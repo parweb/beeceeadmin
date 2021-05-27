@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.3"
 
 services:
   front-end:
@@ -6,7 +6,7 @@ services:
       context: ./packages/front-end/
       args:
         NODE_ENV: production
-        REACT_APP_API: http://ies-calc-01.bcaexpertise.org:6002/doc-num-front/api
+        REACT_APP_API: http://s00i105i.bcaexpertise.org:7440/bca-admin/api
     depends_on:
       - back-end
     restart: always
@@ -16,25 +16,17 @@ services:
     networks: 
       -  app-network
     ports:
-      - "3334:3333"
+      - "7439:3333"
 
   back-end:
     environment:
-      - API_PREVIEW=http://ies-calc-01.bcaexpertise.org:6002/doc-num-front/api
-      - API_DOC_NUM=https://apps-int.bca.fr/doc-num/api/v1
-      - API_AUTH=https://int4.bca.fr/authentication/api/v1
-      - API_BCA_SIGN=http://ies-calc-01.bcaexpertise.org:4327/bca-sign/v1/BCAGDOC
-      - API_MULSOFT=https://bca-e-api-xps-b2b-int.de-c1.cloudhub.io/api/v1
-      - API_MULSOFT_BASIC=YWRtaW46YWRtaW4=
-      - PATH_TMP=/app/tmp/
-      - NAMESPACE=/doc-num-front/api
-      - WKHTMLTOIMAGE=xvfb-run -a -s '-screen 0 1024x768x30' wkhtmltoimage
+      - NAMESPACE=/bca-admin/api
     build:
       context: ./packages/back-end/
       args:
         DATABASE_URL: postgresql://BCAGDOC:BCAGDOCPASS@PSQL_DEV_1.bcaexpertise.org:5447/bcagdoc?schema=public
     ports:
-      - "6002:3500"
+      - "7440:3500"
     networks: 
       -  app-network
     restart: always

@@ -16,10 +16,10 @@ const defaultClient = {
   }
 };
 
-const create = async ({ set, snapshot }, client = defaultClient) => {
+const create = async ({ set, snapshot }, client = {}) => {
   const service = await snapshot.getPromise($service.current('bca-admin-api'));
 
-  await createClient(service, client);
+  await createClient(service, { ...defaultClient, ...client });
   const clients = await allClients(service);
 
   set($client.list, clients);

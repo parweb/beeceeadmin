@@ -15,7 +15,12 @@ import {
 import { $client } from 'states';
 import { useParams, useMutation } from 'hooks';
 import { Input } from 'layout';
-import { BcasignNotificationList, BcasignPositionList } from 'application';
+
+import {
+  BcasignNotificationList,
+  BcasignPositionList,
+  BcasignClientEssentials
+} from 'application';
 
 const ClientEditorForm = () => {
   const { id } = useParams();
@@ -65,6 +70,7 @@ const ClientEditorForm = () => {
         <TabList>
           <Tab>notifications</Tab>
           <Tab>positions</Tab>
+          <Tab>édition rapide</Tab>
         </TabList>
 
         <TabPanels>
@@ -74,6 +80,10 @@ const ClientEditorForm = () => {
 
           <TabPanel>
             <BcasignPositionList clientId={id} />
+          </TabPanel>
+
+          <TabPanel>
+            <BcasignClientEssentials clientId={id} />
           </TabPanel>
         </TabPanels>
       </Tabs>

@@ -64,54 +64,64 @@ const NotificationModal = ({ id }) => {
         />
       </FormControl>
 
-      <FormControl display="flex" alignItems="center">
-        <FormLabel htmlFor="auto-client">auto</FormLabel>
-
+      <FormControl gridGap="5px" display="flex" alignItems="center">
         <Switch
           id="auto-client"
           defaultChecked={data.auto}
           {...register('auto')}
         />
+
+        <FormLabel m={0} htmlFor="auto-client">
+          auto
+        </FormLabel>
       </FormControl>
 
-      <FormControl display="flex" alignItems="center">
-        <FormLabel htmlFor="messagePerDoc">messagePerDoc</FormLabel>
-
+      <FormControl gridGap="5px" display="flex" alignItems="center">
         <Switch
           id="messagePerDoc"
           defaultChecked={data.messagePerDoc}
           {...register('messagePerDoc')}
         />
+
+        <FormLabel m={0} htmlFor="messagePerDoc">
+          messagePerDoc
+        </FormLabel>
       </FormControl>
 
-      <FormControl display="flex" alignItems="center">
-        <FormLabel htmlFor="notifyReception">notifyReception</FormLabel>
-
+      <FormControl gridGap="5px" display="flex" alignItems="center">
         <Switch
           id="notifyReception"
           defaultChecked={data.notifyReception}
           {...register('notifyReception')}
         />
+
+        <FormLabel m={0} htmlFor="notifyReception">
+          notifyReception
+        </FormLabel>
       </FormControl>
 
-      <FormControl display="flex" alignItems="center">
-        <FormLabel htmlFor="notifyResponse">notifyResponse</FormLabel>
-
+      <FormControl gridGap="5px" display="flex" alignItems="center">
         <Switch
           id="notifyResponse"
           defaultChecked={data.notifyResponse}
           {...register('notifyResponse')}
         />
+
+        <FormLabel m={0} htmlFor="notifyResponse">
+          notifyResponse
+        </FormLabel>
       </FormControl>
 
-      <FormControl display="flex" alignItems="center">
-        <FormLabel htmlFor="successOnly">successOnly</FormLabel>
-
+      <FormControl gridGap="5px" display="flex" alignItems="center">
         <Switch
           id="successOnly"
           defaultChecked={data.successOnly}
           {...register('successOnly')}
         />
+
+        <FormLabel m={0} htmlFor="successOnly">
+          successOnly
+        </FormLabel>
       </FormControl>
 
       <FormControl>
@@ -256,14 +266,16 @@ const NotificationModal = ({ id }) => {
           </div>
 
           <div>
-            <FormControl display="flex" alignItems="center">
-              <FormLabel htmlFor="callbackData-ferme">ferme</FormLabel>
-
+            <FormControl gridGap="5px" display="flex" alignItems="center">
               <Switch
                 id="callbackData-ferme"
                 defaultChecked={data?.callbackData?.ferme ?? false}
                 {...register('callbackData.ferme')}
               />
+
+              <FormLabel m={0} htmlFor="callbackData-ferme">
+                ferme
+              </FormLabel>
             </FormControl>
           </div>
 

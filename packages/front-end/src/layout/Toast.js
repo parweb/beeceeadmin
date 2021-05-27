@@ -1,48 +1,50 @@
-// import { useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
-// import { $toasts } from 'states';
-// import { useToast } from '../../hooks';
+import {
+  Toast as ToastSalesforce,
+  ToastContainer
+} from '@salesforce/design-system-react';
 
-// const ToastItem = ({
-//   type = 'info',
-//   heading,
-//   headingLink,
-//   onClickHeadingLink = () => {}
-// }) => {
-//   const { removeToast } = useToast();
+import { $toasts } from 'states';
+import { useToast } from 'hooks';
 
-//   return <div>toaster</div>;
+const ToastItem = ({
+  type = 'info',
+  heading,
+  headingLink,
+  onClickHeadingLink = () => {}
+}) => {
+  const { removeToast } = useToast();
 
-//   // return (
-//   //   <ToastSalesforce
-//   //     labels={{ heading, headingLink }}
-//   //     duration={10000}
-//   //     onRequestClose={() => {
-//   //       removeToast();
-//   //     }}
-//   //     onClickHeadingLink={onClickHeadingLink}
-//   //     variant={type}
-//   //   />
-//   // );
-// };
+  return (
+    <div>
+      <ToastSalesforce
+        labels={{ heading, headingLink }}
+        duration={10000}
+        onRequestClose={() => {
+          removeToast();
+        }}
+        onClickHeadingLink={onClickHeadingLink}
+        variant={type}
+      />
+    </div>
+  );
+};
 
 const Toast = () => {
-  // const toasts = useRecoilValue($toasts);
-  const toasts = [];
+  const toasts = useRecoilValue($toasts);
 
   if (toasts.length === 0) {
     return null;
   }
 
-  return <div>toaster</div>;
-
-  // return (
-  //   <ToastContainer>
-  //     {toasts.map((props, i) => (
-  //       <ToastItem id={`toast-${i}`} key={`toast-${props.id}`} {...props} />
-  //     ))}
-  //   </ToastContainer>
-  // );
+  return (
+    <ToastContainer>
+      {toasts.map((props, i) => (
+        <ToastItem id={`toast-${i}`} key={`toast-${props.id}`} {...props} />
+      ))}
+    </ToastContainer>
+  );
 };
 
 export default Toast;

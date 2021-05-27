@@ -1,3 +1,5 @@
+import { orderBy } from 'helpers';
+
 const allClients = service =>
   fetch(
     `${service.url}/clients?environnement=${service.environnement.name}`
@@ -8,7 +10,7 @@ const allClients = service =>
       throw new Error(data.message);
     }
 
-    return data;
+    return data.sort(orderBy('id', 'asc'));
   });
 
 export default allClients;

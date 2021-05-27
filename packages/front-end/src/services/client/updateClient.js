@@ -4,9 +4,13 @@ const updateClient = async (service, id, data) => {
   try {
     const client = Object.entries(data).reduce((carry, [key, value]) => {
       if (key === 'signPositions') {
-        carry['defaultSignPosition'] = value.find(
+        const defaultSignPosition = value.find(
           ({ codeCourrier }) => codeCourrier === 'default'
-        ).positions[0];
+        );
+
+        if (defaultSignPosition) {
+          carry['defaultSignPosition'] = defaultSignPosition.positions[0];
+        }
 
         return {
           ...carry,

@@ -1,79 +1,83 @@
-import { forwardRef } from 'react';
-import styled from 'styled-components';
+// import { forwardRef } from 'react';
+// import styled from 'styled-components';
 
-const Container = styled.label`
-  .toggle-check-input {
-    width: 1px;
-    height: 1px;
-    position: absolute;
-  }
+// const Container = styled.label`
+//   .toggle-check-input {
+//     width: 1px;
+//     height: 1px;
+//     position: absolute;
+//   }
 
-  .toggle-check-text {
-    display: inline-block;
-    position: relative;
-    text-transform: uppercase;
-    background: #ccc;
-    padding: 0.25em 0.5em 0.25em 2em;
-    border-radius: 1em;
-    min-width: 2em;
-    color: #393939;
+//   .toggle-check-text {
+//     display: inline-block;
+//     position: relative;
+//     text-transform: uppercase;
+//     background: #ccc;
+//     padding: 0.25em 0.5em 0.25em 2em;
+//     border-radius: 1em;
+//     min-width: 2em;
+//     color: #393939;
 
-    cursor: pointer;
+//     cursor: pointer;
 
-    transition: background-color 0.15s;
-  }
+//     transition: background-color 0.15s;
+//   }
 
-  .toggle-check-text:after {
-    content: ' ';
-    display: block;
-    background: #fff;
-    width: 1.5em;
-    height: 1.5em;
-    border-radius: 1em;
-    position: absolute;
-    left: 0.3em;
-    top: 0.2em;
-    transition: left 0.15s, margin-left 0.15s;
-  }
+//   .toggle-check-text:after {
+//     content: ' ';
+//     display: block;
+//     background: #fff;
+//     width: 1.5em;
+//     height: 1.5em;
+//     border-radius: 1em;
+//     position: absolute;
+//     left: 0.3em;
+//     top: 0.2em;
+//     transition: left 0.15s, margin-left 0.15s;
+//   }
 
-  .toggle-check-text:before {
-    content: 'Non';
-    font-size: 0.8rem;
-  }
+//   .toggle-check-text:before {
+//     content: 'Non';
+//     font-size: 0.8rem;
+//   }
 
-  .toggle-check-input:checked ~ .toggle-check-text {
-    background: #fec600;
-    padding-left: 0.5em;
-    padding-right: 2em;
-  }
+//   .toggle-check-input:checked ~ .toggle-check-text {
+//     background: #fec600;
+//     padding-left: 0.5em;
+//     padding-right: 2em;
+//   }
 
-  .toggle-check-input:checked ~ .toggle-check-text:before {
-    content: 'Oui';
-    font-size: 0.8rem;
-  }
+//   .toggle-check-input:checked ~ .toggle-check-text:before {
+//     content: 'Oui';
+//     font-size: 0.8rem;
+//   }
 
-  .toggle-check-input:checked ~ .toggle-check-text:after {
-    left: 100%;
-    margin-left: -1.7em;
-  }
-`;
+//   .toggle-check-input:checked ~ .toggle-check-text:after {
+//     left: 100%;
+//     margin-left: -1.7em;
+//   }
+// `;
 
-const Switch = forwardRef(({ id, defaultChecked, value, ...props }, ref) => {
-  return (
-    <Container>
-      <input
-        ref={ref}
-        id={id}
-        type="checkbox"
-        className="toggle-check-input"
-        name="isAssure"
-        checked={value}
-        defaultChecked={defaultChecked}
-        {...props}
-      />
-      <span className="toggle-check-text"></span>
-    </Container>
-  );
-});
+// const Switch = forwardRef(({ id, defaultChecked, value, ...props }, ref) => {
+//   return (
+//     <Container>
+//       <input
+//         ref={ref}
+//         id={id}
+//         type="checkbox"
+//         className="toggle-check-input"
+//         name="isAssure"
+//         checked={value}
+//         defaultChecked={defaultChecked}
+//         {...props}
+//       />
+//       <span className="toggle-check-text"></span>
+//     </Container>
+//   );
+// });
 
-export default Switch;
+// export default Switch;
+
+import { Switch as SwitchUi } from '@chakra-ui/react';
+
+export default SwitchUi;

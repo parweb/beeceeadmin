@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ROOT=/opt/bcaexpertise/data/BCA_Project/doc-num-front
+ROOT=/opt/bcaexpertise/data/BCA_Project/bca-admin
 cd $ROOT/
 
 VERSION=$(grep version $ROOT/package.json | cut -c 15- | rev | cut -c 3- | rev)

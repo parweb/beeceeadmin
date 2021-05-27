@@ -1,6 +1,6 @@
 import { useState, lazy } from 'react';
 
-import { ButtonGroup } from 'layout';
+import { BcasignClientToolbar } from 'application';
 
 const editors = {
   json: lazy(() => import('./ClientEditorJson')),
@@ -13,13 +13,7 @@ const ClientEditor = () => {
 
   return (
     <>
-      <ButtonGroup
-        name={'type'}
-        options={['form', 'json']}
-        value={editorType}
-        onChange={setEditorType}
-      />
-
+      <BcasignClientToolbar {...{ editorType, setEditorType }} />
       <Component />
     </>
   );

@@ -4,7 +4,7 @@ import AceEditor from 'react-ace';
 import Beautify from 'ace-builds/src-noconflict/ext-beautify';
 
 import { $client } from 'states';
-import { useParams /*, useMutation*/ } from 'hooks';
+import { useParams, useMutation } from 'hooks';
 
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/theme-monokai';
@@ -12,7 +12,7 @@ import 'ace-builds/src-noconflict/theme-monokai';
 const ClientEditorJson = () => {
   const { id } = useParams();
   const data = useRecoilValue($client.read(id));
-  // const [updateClient] = useMutation($client.update(id));
+  const [updateClient] = useMutation($client.update(id));
 
   const client = Object.entries(data).reduce(
     (carry, [key, value]) =>
@@ -39,8 +39,12 @@ const ClientEditorJson = () => {
       mode="json"
       theme="monokai"
       onChange={value => {
-        setJson(value);
-        // updateClient(JSON.parse(value));
+        try {
+          updateClient(JSON.parse(value));
+        } catch (_) {
+        } finally {
+          setJson(value);
+        }
       }}
       name="editor-json"
       width="100%"

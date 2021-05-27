@@ -1,13 +1,13 @@
 {
-  "name": "bcaadmin",
+  "name": "bca-admin",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
     "madge": "npx madge --image graph.svg packages/front-end/src/index.js",
-    "deploy": "git ftp push --user inum --passwd inum sftp://s00i105i.bcaexpertise.org/opt/bcaexpertise/data/BCA_Project/doc-num-front/",
+    "deploy": "git ftp push --user inum --passwd inum sftp://s00i105i.bcaexpertise.org/opt/bcaexpertise/data/BCA_Project/bca-admin/",
     "postdeploy": "sshpass -p inum  ssh inum@s00i105i.bcaexpertise.org 'bash -s' < ./deploy.sh",
-    "deploy:dev": "git ftp push --user inum --passwd inum sftp://s00i105i.bcaexpertise.org/opt/bcaexpertise/data/BCA_Project/doc-num-front-dev/",
+    "deploy:dev": "git ftp push --user inum --passwd inum sftp://s00i105i.bcaexpertise.org/opt/bcaexpertise/data/BCA_Project/bca-admin-dev/",
     "postdeploy:dev": "sshpass -p inum  ssh inum@s00i105i.bcaexpertise.org 'bash -s' < ./deploy-dev.sh"
   },
   "private": true,

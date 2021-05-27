@@ -1,16 +1,96 @@
 import { useRecoilValue } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { DeleteIcon, AddIcon } from '@chakra-ui/icons';
-
 import {
-  /*Switch,*/ FormControl,
+  FormControl,
   FormLabel,
-  IconButton
+  IconButton,
+  ModalFooter
 } from '@chakra-ui/react';
 
 import { $position } from 'states';
 import { Input, Button } from 'layout';
-import { useMutation } from 'hooks';
+import { useMutation, useConfirmation, useToast } from 'hooks';
+
+const PositionRank = ({ data, position, i, isDefault, register }) => {
+  const [updatePosition] = useMutation($position.update(data.codeCourrier));
+  const { addToast } = useToast();
+
+  const onDone = () => {
+    try {
+      updatePosition({
+        codeCourrier: data.codeCourrier,
+        positions: data.positions.filter((_, j) => j !== i)
+      });
+
+      addToast({
+        type: 'success',
+        heading: `La ligne a été supprimé avec succès .`
+      });
+    } catch (e) {
+      addToast({
+        type: 'error',
+        heading: `Echec de la suppression.`
+      });
+    }
+  };
+
+  const removeConfirmation = useConfirmation({
+    onDone,
+    heading: 'Confirmation suppression',
+    message: `Voulez-vous supprimer la ligne ?`
+  });
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      {!isDefault && (
+        <IconButton onClick={removeConfirmation} icon={<DeleteIcon />} />
+      )}
+
+      <FormControl id="position-rank">
+        <FormLabel>rank</FormLabel>
+        <Input
+          defaultValue={position?.rank}
+          {...register(`positions[${i}].rank`)}
+        />
+      </FormControl>
+
+      <FormControl id="position-page">
+        <FormLabel>page</FormLabel>
+        <Input
+          defaultValue={position?.page}
+          {...register(`positions[${i}].page`)}
+        />
+      </FormControl>
+
+      <FormControl id="position-x">
+        <FormLabel>x</FormLabel>
+        <Input defaultValue={position?.x} {...register(`positions[${i}].x`)} />
+      </FormControl>
+
+      <FormControl id="position-y">
+        <FormLabel>y</FormLabel>
+        <Input defaultValue={position?.y} {...register(`positions[${i}].y`)} />
+      </FormControl>
+
+      <FormControl id="position-height">
+        <FormLabel>height</FormLabel>
+        <Input
+          defaultValue={position?.height}
+          {...register(`positions[${i}].height`)}
+        />
+      </FormControl>
+
+      <FormControl id="position-width">
+        <FormLabel>width</FormLabel>
+        <Input
+          defaultValue={position?.width}
+          {...register(`positions[${i}].width`)}
+        />
+      </FormControl>
+    </div>
+  );
+};
 
 const PositionModal = ({ codeCourrier }) => {
   const data = useRecoilValue($position.readWidthDefault(codeCourrier));
@@ -56,72 +136,14 @@ const PositionModal = ({ codeCourrier }) => {
 
       <section>
         {data?.positions?.map((position, i) => (
-          <div key={`position-${i}`}>
-            <div
-              key={`position-${i}`}
-              style={{ display: 'flex', alignItems: 'center' }}
-            >
-              {!isDefault && (
-                <IconButton
-                  onClick={() => {
-                    updatePosition({
-                      codeCourrier: data.codeCourrier,
-                      positions: data.positions.filter((_, j) => j !== i)
-                    });
-                  }}
-                  icon={<DeleteIcon />}
-                />
-              )}
-
-              <FormControl id="position-rank">
-                <FormLabel>rank</FormLabel>
-                <Input
-                  defaultValue={position?.rank}
-                  {...register(`positions[${i}].rank`)}
-                />
-              </FormControl>
-
-              <FormControl id="position-page">
-                <FormLabel>page</FormLabel>
-                <Input
-                  defaultValue={position?.page}
-                  {...register(`positions[${i}].page`)}
-                />
-              </FormControl>
-
-              <FormControl id="position-x">
-                <FormLabel>x</FormLabel>
-                <Input
-                  defaultValue={position?.x}
-                  {...register(`positions[${i}].x`)}
-                />
-              </FormControl>
-
-              <FormControl id="position-y">
-                <FormLabel>y</FormLabel>
-                <Input
-                  defaultValue={position?.y}
-                  {...register(`positions[${i}].y`)}
-                />
-              </FormControl>
-
-              <FormControl id="position-height">
-                <FormLabel>height</FormLabel>
-                <Input
-                  defaultValue={position?.height}
-                  {...register(`positions[${i}].height`)}
-                />
-              </FormControl>
-
-              <FormControl id="position-width">
-                <FormLabel>width</FormLabel>
-                <Input
-                  defaultValue={position?.width}
-                  {...register(`positions[${i}].width`)}
-                />
-              </FormControl>
-            </div>
-          </div>
+          <PositionRank
+            key={`PositionRank-${i}`}
+            isDefault={isDefault}
+            register={register}
+            i={i}
+            data={data}
+            position={position}
+          />
         ))}
       </section>
 
@@ -140,9 +162,18 @@ const PositionModal = ({ codeCourrier }) => {
         </Button>
       )}
 
-      <Button type="submit">Enregistrer</Button>
+      <ModalFooter>
+        <Button type="submit" colorScheme="blue" onClick={() => {}}>
+          Enregistrer
+        </Button>
+      </ModalFooter>
     </form>
   );
 };
 
+const Footer = () => {
+  return 'ploppl';
+};
+
+PositionModal.Footer = Footer;
 export default PositionModal;

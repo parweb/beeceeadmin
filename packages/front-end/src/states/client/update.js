@@ -8,8 +8,6 @@ const update =
       $service.current('bca-admin-api')
     );
 
-    // console.log({ data });
-
     await updateClient(service, id, data);
     const clients = await allClients(service);
 

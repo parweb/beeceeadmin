@@ -8,8 +8,8 @@ const $modal = atom({
     onClose: () => {},
     content: '',
     size: undefined,
-    width: undefined,
-    scrollBehavior: 'outside'
+    scrollBehavior: 'outside',
+    hasFooter: false
   }
 });
 

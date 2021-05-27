@@ -13,9 +13,9 @@ ENV REACT_APP_API $REACT_APP_API
 RUN yarn build
 
 FROM nginx:1.19-alpine
-COPY --from=build /app/build /usr/share/nginx/html/doc-num-front
+COPY --from=build /app/build /usr/share/nginx/html/bca-admin
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx/nginx.conf /etc/nginx/conf.d
-RUN ls -la /usr/share/nginx/html/doc-num-front/
+RUN ls -la /usr/share/nginx/html/bca-admin/
 EXPOSE 3333
 CMD ["nginx", "-g", "daemon off;"]
