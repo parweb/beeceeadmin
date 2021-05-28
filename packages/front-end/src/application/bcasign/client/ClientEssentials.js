@@ -34,16 +34,18 @@ const ClientEssentials = () => {
   };
 
   const docnum_api = new URL(
-    client?.callbackChannels.find(({ code }) => code === 'DOC_NUM')?.callbackUrl
+    client?.callbackChannels?.find(({ code }) => code === 'DOC_NUM')
+      ?.callbackUrl ?? ''
   ).origin;
 
   const bcatask_api = new URL(
-    client?.callbackChannels.find(({ code }) => code === 'GE')?.callbackUrl
+    client?.callbackChannels?.find(({ code }) => code === 'GE')?.callbackUrl ??
+      ''
   ).origin;
 
-  const xpsrabbitmq_api = client?.callbackChannels.find(
-    ({ code }) => code === 'XPS'
-  )?.callbackUrl;
+  const xpsrabbitmq_api =
+    client?.callbackChannels?.find(({ code }) => code === 'XPS')?.callbackUrl ??
+    '';
 
   return (
     <>

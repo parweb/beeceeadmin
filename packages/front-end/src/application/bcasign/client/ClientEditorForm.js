@@ -28,7 +28,7 @@ const ClientEditorForm = () => {
   const [updateClient] = useMutation($client.update(id));
 
   const hasClientEssentials =
-    client?.callbackChannels.length === 4 &&
+    client?.callbackChannels?.length === 4 &&
     client?.callbackChannels
       .map(({ code }) => code)
       .sort()
@@ -89,9 +89,11 @@ const ClientEditorForm = () => {
             <BcasignPositionList clientId={id} />
           </TabPanel>
 
-          <TabPanel>
-            <BcasignClientEssentials clientId={id} />
-          </TabPanel>
+          {hasClientEssentials && (
+            <TabPanel>
+              <BcasignClientEssentials clientId={id} />
+            </TabPanel>
+          )}
         </TabPanels>
       </Tabs>
     </>
