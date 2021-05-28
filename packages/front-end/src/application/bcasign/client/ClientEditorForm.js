@@ -27,6 +27,13 @@ const ClientEditorForm = () => {
   const client = useRecoilValue($client.read(id));
   const [updateClient] = useMutation($client.update(id));
 
+  const hasClientEssentials =
+    client?.callbackChannels.length === 4 &&
+    client?.callbackChannels
+      .map(({ code }) => code)
+      .sort()
+      .join('-') === 'DOC_NUM-GE-GE-XPS';
+
   const onChange = e => {
     const { value, name } = e.target;
 
@@ -70,7 +77,7 @@ const ClientEditorForm = () => {
         <TabList>
           <Tab>notifications</Tab>
           <Tab>positions</Tab>
-          <Tab>édition rapide</Tab>
+          {hasClientEssentials && <Tab>édition rapide</Tab>}
         </TabList>
 
         <TabPanels>
