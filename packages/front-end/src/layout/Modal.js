@@ -1,4 +1,4 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import {
   Button,
@@ -14,24 +14,23 @@ import {
 import { $modal } from 'states';
 
 const Modal = () => {
-  const [
-    {
-      title,
-      onClose,
-      isOpen,
-      content,
-      size,
-      scrollBehavior,
-      hasFooter,
-      footer
-    },
-    setModal
-  ] = useRecoilState($modal);
+  const {
+    title,
+    onClose,
+    isOpen,
+    content,
+    size,
+    scrollBehavior,
+    hasFooter,
+    footer
+  } = useRecoilValue($modal);
+
+  const resetModal = useResetRecoilState($modal);
 
   const action = {
     close: () => {
       onClose();
-      setModal(state => ({ ...state, isOpen: false }));
+      resetModal();
     }
   };
 
@@ -54,7 +53,7 @@ const Modal = () => {
         {hasFooter === false && (
           <ModalFooter style={{ gap: '5px' }}>
             <Button variant="outline" colorScheme="blue" onClick={action.close}>
-              Annuler
+              Fermer
             </Button>
             {footer}
           </ModalFooter>

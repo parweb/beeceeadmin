@@ -17,7 +17,7 @@ const NotificationItem = ({ id }) => {
 
       addToast({
         type: 'success',
-        heading: `La notification ${code} a été supprimé avec succès .`
+        heading: `La notification ${code} a été supprimé avec succès.`
       });
     } catch (e) {
       addToast({

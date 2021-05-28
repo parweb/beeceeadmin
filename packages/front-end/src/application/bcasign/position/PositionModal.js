@@ -1,12 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { DeleteIcon, AddIcon } from '@chakra-ui/icons';
-import {
-  FormControl,
-  FormLabel,
-  IconButton,
-  ModalFooter
-} from '@chakra-ui/react';
+import { FormControl, FormLabel, IconButton } from '@chakra-ui/react';
 
 import { $position } from 'states';
 import { Input, Button } from 'layout';
@@ -25,7 +20,7 @@ const PositionRank = ({ data, position, i, isDefault, register }) => {
 
       addToast({
         type: 'success',
-        heading: `La ligne a été supprimé avec succès .`
+        heading: `La ligne a été supprimé avec succès.`
       });
     } catch (e) {
       addToast({
@@ -161,12 +156,6 @@ const PositionModal = ({ codeCourrier }) => {
           Ajouter une position
         </Button>
       )}
-
-      <ModalFooter>
-        <Button type="submit" colorScheme="blue" onClick={() => {}}>
-          Enregistrer
-        </Button>
-      </ModalFooter>
     </form>
   );
 };

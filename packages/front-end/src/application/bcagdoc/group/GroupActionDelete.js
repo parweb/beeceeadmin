@@ -13,7 +13,7 @@ const GroupActionDelete = ({ groupId, name }) => {
 
       addToast({
         type: 'success',
-        heading: `Le groupe ${name}  a été supprimé avec succès .`
+        heading: `Le groupe ${name} a été supprimé avec succès.`
       });
     } catch (e) {
       addToast({

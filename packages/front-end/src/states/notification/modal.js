@@ -15,14 +15,18 @@ const modal = selectorFamily({
         content: <BcasignNotificationModal id={id} />,
         size: 'xl',
         scrollBehavior: 'inside',
-        footer: <BcasignNotificationModal.Footer />
+        footer: <BcasignNotificationModal.Footer id={id} />
       };
     },
   set:
     id =>
-    ({ set, get }) => {
+    ({ set, get }, options = { isOpen: true }) => {
+      if ('cancelable' in options) {
+        options = { isOpen: true };
+      }
+
       const modal = get($notification.modal(id));
-      set($modal, state => ({ ...state, ...modal, isOpen: true }));
+      set($modal, state => ({ ...state, ...modal, ...options }));
     }
 });
 

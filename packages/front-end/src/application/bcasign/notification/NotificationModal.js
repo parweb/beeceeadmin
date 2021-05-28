@@ -1,56 +1,84 @@
-import { useRecoilValue } from 'recoil';
+import { useRef, useEffect } from 'react';
+import {
+  useRecoilValue,
+  useSetRecoilState,
+  useResetRecoilState,
+  atom
+} from 'recoil';
 import { useForm } from 'react-hook-form';
 import { FormControl, FormLabel } from '@chakra-ui/react';
 
-import { $notification } from 'states';
+import { $notification, $modal } from 'states';
 import { Input, Button, Switch, Select } from 'layout';
-import { useMutation } from 'hooks';
+import { useMutation, useToast } from 'hooks';
+
+const $submit = atom({
+  key: 'submit-modal-notification',
+  default: null
+});
 
 const NotificationModal = ({ id }) => {
-  const { register, handleSubmit, ...form } = useForm({
-    mode: 'all',
-    reValidateMode: 'onChange'
-  });
+  const submitRef = useRef();
+  const { register, handleSubmit } = useForm();
+  const setSubmit = useSetRecoilState($submit);
 
-  console.log({ form });
   const data = useRecoilValue($notification.read(id));
   const [updateNotification] = useMutation($notification.update(id));
 
+  const resetModal = useResetRecoilState($modal);
+  const { addToast } = useToast();
+
+  useEffect(() => {
+    setSubmit(submitRef.current);
+  }, [submitRef.current]); // eslint-disable-line
+
   const onSubmit = fields => {
-    const data = {
-      ...fields,
-      auto: JSON.parse(fields.auto),
-      messagePerDoc: JSON.parse(fields.messagePerDoc),
-      notifyReception: JSON.parse(fields.notifyReception),
-      notifyResponse: JSON.parse(fields.notifyResponse),
-      successOnly: JSON.parse(fields.successOnly),
-      callbackData: Object.fromEntries(
-        Object.entries({
-          cod_etape: fields?.callbackData?.cod_etape || null,
-          cod_process: fields?.callbackData?.cod_process || null,
-          cod_tache: fields?.callbackData?.cod_tache || null,
-          comment: fields?.callbackData?.comment || null,
-          num_dos: fields?.callbackData?.num_dos || null,
-          codeQualification: fields?.callbackData?.codeQualification || null,
-          documents: fields?.callbackData?.documents || null,
-          numDos: fields?.callbackData?.numDos || null,
-          typeDocument: fields?.callbackData?.typeDocument || null,
+    try {
+      const data = {
+        ...fields,
+        auto: JSON.parse(fields.auto),
+        messagePerDoc: JSON.parse(fields.messagePerDoc),
+        notifyReception: JSON.parse(fields.notifyReception),
+        notifyResponse: JSON.parse(fields.notifyResponse),
+        successOnly: JSON.parse(fields.successOnly),
+        callbackData: Object.fromEntries(
+          Object.entries({
+            cod_etape: fields?.callbackData?.cod_etape || null,
+            cod_process: fields?.callbackData?.cod_process || null,
+            cod_tache: fields?.callbackData?.cod_tache || null,
+            comment: fields?.callbackData?.comment || null,
+            num_dos: fields?.callbackData?.num_dos || null,
+            codeQualification: fields?.callbackData?.codeQualification || null,
+            documents: fields?.callbackData?.documents || null,
+            numDos: fields?.callbackData?.numDos || null,
+            typeDocument: fields?.callbackData?.typeDocument || null,
 
-          ferme: JSON.parse(fields?.callbackData?.ferme || null)
-        }).filter(([_, value]) => value !== null)
-      ),
-      authMethod: fields.authMethod || null,
-      username: fields.username || null,
-      password: fields.password || null
-    };
+            ferme: JSON.parse(fields?.callbackData?.ferme || null)
+          }).filter(([_, value]) => value !== null)
+        ),
+        authMethod: fields.authMethod || null,
+        username: fields.username || null,
+        password: fields.password || null
+      };
 
-    console.log({ data });
+      updateNotification(data);
 
-    // updateNotification(data);
+      resetModal();
+
+      addToast({
+        type: 'success',
+        heading: `Notifaction modifié avec succés.`
+      });
+    } catch (error) {
+      addToast({
+        type: 'error',
+        heading: `Une erreur est survenue lors de la modification.`
+      });
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} onChange={console.log}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl>
         <FormLabel htmlFor="code-client">code</FormLabel>
 
@@ -361,12 +389,26 @@ const NotificationModal = ({ id }) => {
           />
         </FormControl>
       )}
+
+      <Button ref={submitRef} style={{ display: 'none' }} type="submit">
+        Enregistrer
+      </Button>
     </form>
   );
 };
 
-const Footer = () => {
-  return <Button type="submit">Enregistrer</Button>;
+const Footer = ({ id }) => {
+  const submitRef = useRecoilValue($submit);
+
+  return (
+    <Button
+      onClick={() => {
+        submitRef.click();
+      }}
+    >
+      Enregistrer
+    </Button>
+  );
 };
 
 NotificationModal.Footer = Footer;

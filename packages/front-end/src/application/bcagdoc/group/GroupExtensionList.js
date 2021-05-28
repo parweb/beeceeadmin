@@ -16,7 +16,7 @@ const GroupExtensionList = ({ groupId, id, name, description }) => {
 
       addToast({
         type: 'success',
-        heading: `L'extension ${name}  a été supprimé avec succès .`
+        heading: `L'extension ${name} a été supprimé avec succès.`
       });
     } catch (e) {
       addToast({

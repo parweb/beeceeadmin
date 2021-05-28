@@ -20,7 +20,7 @@ const PositionItem = ({ codeCourrier }) => {
 
       addToast({
         type: 'success',
-        heading: `La notification ${codeCourrier} a été supprimé avec succès .`
+        heading: `La notification ${codeCourrier} a été supprimé avec succès.`
       });
     } catch (e) {
       addToast({

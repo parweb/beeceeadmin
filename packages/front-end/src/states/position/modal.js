@@ -15,15 +15,18 @@ const modal = selectorFamily({
         title: `Edition de la position ${codeCourrier}`,
         content: <BcasignPositionModal codeCourrier={codeCourrier} />,
         size: 'xl',
-        scrollBehavior: 'inside',
-        hasFooter: true
+        scrollBehavior: 'inside'
       };
     },
   set:
     codeCourrier =>
-    ({ set, get }, { isOpen = true }) => {
+    ({ set, get }, options = { isOpen: true }) => {
+      if ('cancelable' in options) {
+        options = { isOpen: true };
+      }
+
       const modal = get($position.modal(codeCourrier));
-      set($modal, state => ({ ...state, ...modal, isOpen }));
+      set($modal, state => ({ ...state, ...modal, ...options }));
     }
 });
 

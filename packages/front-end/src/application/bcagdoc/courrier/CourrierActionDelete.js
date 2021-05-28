@@ -13,7 +13,7 @@ const CourrierActionDelete = ({ courrierId, name }) => {
 
       addToast({
         type: 'success',
-        heading: `Le code courrier ${name} a été supprimé avec succès .`
+        heading: `Le code courrier ${name} a été supprimé avec succès.`
       });
     } catch (e) {
       addToast({
