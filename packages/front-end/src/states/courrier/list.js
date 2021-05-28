@@ -11,11 +11,11 @@ const $proxy = atomFamily({
 const list = selector({
   key: 'courrier.list',
   get: ({ get }) => {
-    const service = get($service.current('bca-admin-api'));
+    const service = get($service.current('bca-courrier-api'));
     return get($proxy(service.url));
   },
   set: ({ set, get }, value) => {
-    const service = get($service.current('bca-admin-api'));
+    const service = get($service.current('bca-courrier-api'));
     set($proxy(service.url), value);
   }
 });

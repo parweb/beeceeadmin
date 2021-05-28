@@ -2,7 +2,7 @@ import { $group, $service } from 'states';
 import { createGroup, allGroups } from 'services';
 
 const create = async ({ set, snapshot }, group) => {
-  const service = await snapshot.getPromise($service.current('bca-admin-api'));
+  const service = await snapshot.getPromise($service.current('bca-group-api'));
 
   await createGroup(service.url, group);
   const groups = await allGroups(service.url);

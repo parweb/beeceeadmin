@@ -6,7 +6,7 @@ const getService = require('../helpers/getService');
 module.exports = (app, opts, next) => {
   app.get('/clients', async (request, reply) => {
     const { environnement } = request.query;
-    const service = await getService(environnement, 'bca-sign');
+    const service = await getService(environnement, 'bca-sign-api');
 
     axios
       .get(service.url + '/clients')
@@ -39,7 +39,7 @@ module.exports = (app, opts, next) => {
     const data = request.body;
 
     const { environnement } = request.query;
-    const service = await getService(environnement, 'bca-sign');
+    const service = await getService(environnement, 'bca-sign-api');
 
     axios
       .put(service.url + '/clients/' + id, data)
@@ -56,7 +56,7 @@ module.exports = (app, opts, next) => {
     const data = request.body;
 
     const { environnement } = request.query;
-    const service = await getService(environnement, 'bca-sign');
+    const service = await getService(environnement, 'bca-sign-api');
 
     axios
       .post(service.url + '/clients', data)

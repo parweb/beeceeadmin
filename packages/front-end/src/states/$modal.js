@@ -9,7 +9,8 @@ const $modal = atom({
     content: '',
     size: undefined,
     scrollBehavior: 'outside',
-    hasFooter: false
+    hasFooter: false,
+    footer: null
   }
 });
 

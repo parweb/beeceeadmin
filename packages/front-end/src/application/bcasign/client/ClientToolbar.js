@@ -23,17 +23,20 @@ const ClientToolbar = ({ editorType, setEditorType }) => {
       }}
     >
       <div>
-        <Button
-          onClick={() => {
-            addToast({
-              type: 'success',
-              heading: `Les modification du client sont enregistrer.`
-            });
-          }}
-          leftIcon={<AiOutlineSave />}
-        >
-          Enregistrer
-        </Button>
+        {false && (
+          <Button
+            onClick={() => {
+              addToast({
+                type: 'success',
+                heading: `Les modification du client sont enregistrer.`
+              });
+            }}
+            leftIcon={<AiOutlineSave />}
+          >
+            Enregistrer
+          </Button>
+        )}
+
         <Button onClick={downloadClient} leftIcon={<AiOutlineDownload />}>
           Télécharger
         </Button>

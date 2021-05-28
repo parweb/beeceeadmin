@@ -3,11 +3,16 @@ import { useForm } from 'react-hook-form';
 import { FormControl, FormLabel } from '@chakra-ui/react';
 
 import { $notification } from 'states';
-import { Input, Button, Switch } from 'layout';
+import { Input, Button, Switch, Select } from 'layout';
 import { useMutation } from 'hooks';
 
 const NotificationModal = ({ id }) => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, ...form } = useForm({
+    mode: 'all',
+    reValidateMode: 'onChange'
+  });
+
+  console.log({ form });
   const data = useRecoilValue($notification.read(id));
   const [updateNotification] = useMutation($notification.update(id));
 
@@ -39,11 +44,13 @@ const NotificationModal = ({ id }) => {
       password: fields.password || null
     };
 
-    updateNotification(data);
+    console.log({ data });
+
+    // updateNotification(data);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} onChange={console.log}>
       <FormControl>
         <FormLabel htmlFor="code-client">code</FormLabel>
 
@@ -198,26 +205,28 @@ const NotificationModal = ({ id }) => {
         />
       </FormControl>
 
-      {/* <FormControl>
-        <FormLabel htmlFor="callbackRequiredParams">
-          callbackRequiredParams
-        </FormLabel>
+      {false && (
+        <FormControl>
+          <FormLabel htmlFor="callbackRequiredParams">
+            callbackRequiredParams
+          </FormLabel>
 
-        <Select
-          id="callbackRequiredParams"
-          multiple
-          options={data.callbackRequiredParams.map(value => ({
-            id: value,
-            label: value
-          }))}
-          value={data.callbackRequiredParams.map(value => ({
-            id: value,
-            label: value
-          }))}
-          variant="inline-listbox"
-          {...register('callbackRequiredParams')}
-        />
-      </FormControl>*/}
+          <Select
+            id="callbackRequiredParams"
+            multiple
+            options={data.callbackRequiredParams.map(value => ({
+              id: value,
+              label: value
+            }))}
+            value={data.callbackRequiredParams.map(value => ({
+              id: value,
+              label: value
+            }))}
+            variant="inline-listbox"
+            {...register('callbackRequiredParams')}
+          />
+        </FormControl>
+      )}
 
       <FormControl id="callbackData">
         <FormLabel htmlFor="callbackData-cod_etape">callbackData</FormLabel>
@@ -335,23 +344,30 @@ const NotificationModal = ({ id }) => {
         </div>
       </FormControl>
 
-      {/*<FormControl>
-        <FormLabel id="callbackDataTransform">callbackDataTransform</FormLabel>
+      {false && (
+        <FormControl>
+          <FormLabel id="callbackDataTransform">
+            callbackDataTransform
+          </FormLabel>
 
-        <Select
-          id="callbackDataTransform"
-          options={[]}
-          defaultValue={data.callbackDataTransform.map(value => ({
-            id: value,
-            label: value
-          }))}
-          {...register('callbackDataTransform')}
-        />
-      </FormControl>*/}
-
-      <Button type="submit">Enregistrer</Button>
+          <Select
+            id="callbackDataTransform"
+            options={[]}
+            defaultValue={data.callbackDataTransform.map(value => ({
+              id: value,
+              label: value
+            }))}
+            {...register('callbackDataTransform')}
+          />
+        </FormControl>
+      )}
     </form>
   );
 };
 
+const Footer = () => {
+  return <Button type="submit">Enregistrer</Button>;
+};
+
+NotificationModal.Footer = Footer;
 export default NotificationModal;

@@ -15,7 +15,16 @@ import { $modal } from 'states';
 
 const Modal = () => {
   const [
-    { title, onClose, isOpen, content, size, scrollBehavior, hasFooter },
+    {
+      title,
+      onClose,
+      isOpen,
+      content,
+      size,
+      scrollBehavior,
+      hasFooter,
+      footer
+    },
     setModal
   ] = useRecoilState($modal);
 
@@ -43,10 +52,11 @@ const Modal = () => {
         <ModalBody>{content}</ModalBody>
 
         {hasFooter === false && (
-          <ModalFooter>
-            <Button variant="link" colorScheme="blue" onClick={action.close}>
+          <ModalFooter style={{ gap: '5px' }}>
+            <Button variant="outline" colorScheme="blue" onClick={action.close}>
               Annuler
             </Button>
+            {footer}
           </ModalFooter>
         )}
       </ModalContent>
