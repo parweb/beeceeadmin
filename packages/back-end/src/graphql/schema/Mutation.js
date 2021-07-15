@@ -36,6 +36,34 @@ const Mutation = mutationType({
         t.crud.deleteOneService();
         t.crud.updateManyService();
         t.crud.deleteManyService();
+
+        t.crud.createOneUser();
+        t.crud.updateOneUser();
+        t.crud.upsertOneUser();
+        t.crud.deleteOneUser();
+        t.crud.updateManyUser();
+        t.crud.deleteManyUser();
+
+        t.crud.createOnePermission();
+        t.crud.updateOnePermission();
+        t.crud.upsertOnePermission();
+        t.crud.deleteOnePermission();
+        t.crud.updateManyPermission();
+        t.crud.deleteManyPermission();
+
+        t.crud.createOneActivity();
+        t.crud.updateOneActivity();
+        t.crud.upsertOneActivity();
+        t.crud.deleteOneActivity();
+        t.crud.updateManyActivity();
+        t.crud.deleteManyActivity();
+
+        t.crud.createOneRole();
+        t.crud.updateOneRole();
+        t.crud.upsertOneRole();
+        t.crud.deleteOneRole();
+        t.crud.updateManyRole();
+        t.crud.deleteManyRole();
     }
 });
 

@@ -1,5 +1,5 @@
 import { $service, $client } from 'states';
-import { updateClient, allClients } from 'services';
+import { updateClient, allClients, createActivity } from 'services';
 
 const remove =
   codeCourrier =>
@@ -26,6 +26,8 @@ const remove =
     );
 
     await updateClient(service, client.id, newClient);
+    await createActivity('client.update', client.id, newClient);
+
     const clients = await allClients(service);
 
     set($client.list, clients);

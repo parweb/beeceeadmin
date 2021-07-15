@@ -2,7 +2,7 @@ import { useRecoilState } from 'recoil';
 import { useHistory, useLocation, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { $user } from 'states';
+import { $auth } from 'states';
 import { Button } from 'layout';
 
 const logos = {
@@ -73,13 +73,13 @@ const MenuItem = styled.li`
 `;
 
 const Header = () => {
-  const [user, setUser] = useRecoilState($user);
+  const [auth, setAuth] = useRecoilState($auth);
 
   const history = useHistory();
   const location = useLocation();
 
   const handleLogout = () => {
-    setUser({ isAuthenticated: false });
+    setAuth({ isAuthenticated: false });
     history.push('/');
   };
 
@@ -96,12 +96,12 @@ const Header = () => {
         }}
       ></div>
 
-      {user?.isAuthenticated && (
+      {auth?.isAuthenticated && (
         <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
           <MenuContainer>
-            {menus[user.profil].map(({ label, url }) => (
+            {menus[auth.profil].map(({ label, url }) => (
               <MenuItem
-                key={`${user.profil}-${label}`}
+                key={`${auth.profil}-${label}`}
                 active={url === location.pathname}
               >
                 <Link to={url}>{label}</Link>
@@ -115,7 +115,7 @@ const Header = () => {
           <div
             style={{
               background: `url(${
-                logos[user.profil]
+                logos[auth.profil]
               }) center center / contain no-repeat #fff`,
               height: '50px',
               width: '50px',

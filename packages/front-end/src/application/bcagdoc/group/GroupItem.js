@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { useAccess } from 'hooks';
+
 import {
   BcagdocGroupAddExtension,
   BcagdocGroupExtensionList,
@@ -11,6 +13,7 @@ import {
 } from 'application';
 
 const GroupItem = ({ id, name, extensions, display, upload, size }) => {
+  const can = useAccess();
   const [count, setCount] = useState(5);
 
   return (
@@ -32,7 +35,9 @@ const GroupItem = ({ id, name, extensions, display, upload, size }) => {
           gap: '7px'
         }}
       >
-        <BcagdocGroupActionDelete groupId={id} name={name} />
+        {can('extension.delete') && (
+          <BcagdocGroupActionDelete groupId={id} name={name} />
+        )}
 
         <h1
           style={{
@@ -77,7 +82,7 @@ const GroupItem = ({ id, name, extensions, display, upload, size }) => {
         )}
       </ul>
 
-      <BcagdocGroupAddExtension groupId={id} />
+      {can('extension.add') && <BcagdocGroupAddExtension groupId={id} />}
     </div>
   );
 };

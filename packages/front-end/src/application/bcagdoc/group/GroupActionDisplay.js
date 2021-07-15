@@ -2,9 +2,11 @@ import { useRecoilValue } from 'recoil';
 import { Checkbox } from '@salesforce/design-system-react';
 
 import { $group } from 'states';
-import { useMutation } from 'hooks';
+import { useMutation, useAccess } from 'hooks';
 
 const GroupActionDisplay = ({ groupId, value = false }) => {
+  const can = useAccess();
+
   const { display } = useRecoilValue($group.read(groupId));
   const [updateGroup] = useMutation($group.update(groupId));
 
@@ -16,6 +18,7 @@ const GroupActionDisplay = ({ groupId, value = false }) => {
       }}
     >
       <Checkbox
+        disabled={!can('extension.edit')}
         name="display"
         checked={display}
         onChange={e => {

@@ -1,17 +1,19 @@
-import { useMutation } from '@apollo/client';
+// import { useMutation } from '@apollo/client';
 import { Button } from '@salesforce/design-system-react';
-import { useConfirmation, useToast } from 'hooks';
 
-import { DELETE_EXTENSIONS_FROM_GROUP } from 'requests';
+import { useConfirmation, useToast, useAccess, useMutation } from 'hooks';
+import { $group } from 'states';
 
 const GroupExtensionList = ({ groupId, id, name, description }) => {
-  const [deleteExtensionFromGroup] = useMutation(DELETE_EXTENSIONS_FROM_GROUP);
+  const can = useAccess();
+  // const [deleteExtensionFromGroup] = useMutation(DELETE_EXTENSIONS_FROM_GROUP);
+  const [updateGroup] = useMutation($group.update(groupId));
   const { addToast } = useToast();
 
   const onDone = async () => {
     try {
-      await deleteExtensionFromGroup({
-        variables: { extensionId: id, groupId }
+      await updateGroup({
+        extension: { value: false, id }
       });
 
       addToast({
@@ -46,13 +48,16 @@ const GroupExtensionList = ({ groupId, id, name, description }) => {
           openConfirmation();
         }}
       >
-        <Button
-          type="submit"
-          iconCategory="utility"
-          iconSize="medium"
-          variant="icon"
-          iconName="delete"
-        />
+        {can('extension.delete') && (
+          <Button
+            type="submit"
+            iconCategory="utility"
+            iconSize="medium"
+            variant="icon"
+            iconName="delete"
+          />
+        )}
+
         <span>
           {name} - {description}
         </span>

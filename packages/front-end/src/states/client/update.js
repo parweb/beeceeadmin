@@ -1,5 +1,5 @@
 import { $client, $service } from 'states';
-import { updateClient, allClients } from 'services';
+import { updateClient, allClients, createActivity } from 'services';
 
 const update =
   id =>
@@ -9,6 +9,8 @@ const update =
     );
 
     await updateClient(service, id, data);
+    await createActivity('client.update', id, data);
+
     const clients = await allClients(service);
 
     set($client.list, clients);

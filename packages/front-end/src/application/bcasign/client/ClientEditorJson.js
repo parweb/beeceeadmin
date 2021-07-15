@@ -4,12 +4,14 @@ import AceEditor from 'react-ace';
 import Beautify from 'ace-builds/src-noconflict/ext-beautify';
 
 import { $client } from 'states';
-import { useParams, useMutation } from 'hooks';
+import { useParams, useMutation, useAccess } from 'hooks';
 
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/theme-monokai';
 
 const ClientEditorJson = () => {
+  const can = useAccess();
+
   const { id } = useParams();
   const data = useRecoilValue($client.read(id));
   const [updateClient] = useMutation($client.update(id));
@@ -39,6 +41,8 @@ const ClientEditorJson = () => {
       mode="json"
       theme="monokai"
       onChange={value => {
+        if (!can('client.edit')) return;
+
         try {
           updateClient(JSON.parse(value));
         } catch (_) {
@@ -63,14 +67,6 @@ const ClientEditorJson = () => {
       }}
     />
   );
-
-  // return (
-  //   <textarea
-  //     style={{ width: '100%', height: '100%' }}
-  //     onChange={e => setInput(JSON.parse(e.target.value))}
-  //     value={json}
-  //   />
-  // );
 };
 
 export default ClientEditorJson;

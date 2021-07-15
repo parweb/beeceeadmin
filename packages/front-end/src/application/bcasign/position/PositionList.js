@@ -5,32 +5,36 @@ import produce from 'immer';
 import { $client } from 'states';
 import { BcasignPositionItem } from 'application';
 import { Button } from 'layout';
-import { useMutation } from 'hooks';
+import { useMutation, useAccess } from 'hooks';
 
 const PositionList = ({ clientId }) => {
+  const can = useAccess();
+
   const client = useRecoilValue($client.readWidthDefault(clientId));
   const [updateClient] = useMutation($client.update(clientId));
 
   return (
     <>
-      <Button
-        onClick={() => {
-          const codeCourrier = prompt('Code courrier ?');
+      {can('client.add') && (
+        <Button
+          onClick={() => {
+            const codeCourrier = prompt('Code courrier ?');
 
-          updateClient(
-            produce(client, draft => {
-              draft.signPositions.push({
-                codeCourrier,
-                positions: []
-              });
-            })
-          );
-        }}
-        leftIcon={<GrAdd />}
-        variant="solid"
-      >
-        Ajouter une position
-      </Button>
+            updateClient(
+              produce(client, draft => {
+                draft.signPositions.push({
+                  codeCourrier,
+                  positions: []
+                });
+              })
+            );
+          }}
+          leftIcon={<GrAdd />}
+          variant="solid"
+        >
+          Ajouter une position
+        </Button>
+      )}
 
       <hr />
 

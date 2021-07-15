@@ -11,9 +11,15 @@ const updateGroup = async (url, id, data) => {
     if (data?.size) variables.data.size = { set: data.size };
 
     if ('extension' in data) {
-      variables.data['extensions'] = {
-        connect: { id: data.extension }
-      };
+      if (data.extension.value === true) {
+        variables.data['extensions'] = {
+          connect: { id: data.extension.id }
+        };
+      } else {
+        variables.data['extensions'] = {
+          disconnect: { id: data.extension.id }
+        };
+      }
 
       delete variables.data.extension;
     }

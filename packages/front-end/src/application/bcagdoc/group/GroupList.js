@@ -3,8 +3,11 @@ import { ToastContainer, Toast } from '@salesforce/design-system-react';
 
 import { BcagdocGroupAdd, BcagdocGroupItem } from 'application';
 import { $group } from 'states';
+import { useAccess } from 'hooks';
 
 const GroupList = () => {
+  const can = useAccess();
+
   const groups = useRecoilValue($group.list);
   const upload = groups.map(item => item.upload);
   const hasNoneUploadSelected = upload?.every(item => item === false);
@@ -23,7 +26,7 @@ const GroupList = () => {
       )}
 
       <div style={{ marginTop: hasNoneUploadSelected && '20px' }}>
-        <BcagdocGroupAdd />
+        {can('extension.add') && <BcagdocGroupAdd />}
 
         {groups.map(props => (
           <BcagdocGroupItem key={`BcagdocGroupItem-${props.id}`} {...props} />

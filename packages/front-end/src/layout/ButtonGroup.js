@@ -20,10 +20,9 @@ const RadioCard = props => {
         }}
         cursor="pointer"
         borderWidth="1px"
-        borderRadius="50%"
-        boxShadow="md"
-        px={5}
-        py={3}
+        borderColor="blue.primary"
+        px={3}
+        py={1}
       >
         {props.children}
       </Box>

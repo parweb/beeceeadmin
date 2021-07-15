@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 
 import { useParams } from 'hooks';
-import { Spinner } from 'layout';
+import { Spinner, UserMenu } from 'layout';
 
 import {
   BcaconnectHome,
@@ -33,7 +33,7 @@ const Application = props => {
 
   return (
     <>
-      <Flex p={2} bg="white" borderWidth="1px">
+      <Flex p={2} bg="white" borderWidth="1px" style={{ gap: '5px' }}>
         <Center>
           <Breadcrumb>
             {breadcrumbs.map(([key, value], i) => (
@@ -51,6 +51,10 @@ const Application = props => {
 
         <Center>
           <EnvironnementList />
+        </Center>
+
+        <Center>
+          <UserMenu />
         </Center>
       </Flex>
 

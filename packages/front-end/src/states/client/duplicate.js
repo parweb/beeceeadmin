@@ -1,5 +1,5 @@
 import { $client, $service } from 'states';
-import { createClient, allClients } from 'services';
+import { createClient, allClients, createActivity } from 'services';
 
 const duplicate =
   id =>
@@ -11,6 +11,8 @@ const duplicate =
     const client = await snapshot.getPromise($client.read(id));
 
     await createClient(service, { ...client, ...data });
+    await createActivity('client.create', null, { ...client, ...data });
+
     const clients = await allClients(service);
 
     set($client.list, clients);

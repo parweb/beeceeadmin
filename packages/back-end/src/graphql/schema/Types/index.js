@@ -3,5 +3,11 @@ module.exports = [
   require('./Group'),
   require('./Courrier'),
   require('./Environnement'),
-  require('./Service')
+  require('./Service'),
+  require('./Activity'),
+  require('./User'),
+  require('./Role'),
+  require('./Permission'),
+  require('./PermissionsOnUsers'),
+  require('./PermissionsOnRoles')
 ];

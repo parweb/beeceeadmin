@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 
 import { $client } from 'states';
-import { useParams, useMutation } from 'hooks';
+import { useParams, useMutation, useAccess } from 'hooks';
 import { Input } from 'layout';
 
 import {
@@ -23,6 +23,8 @@ import {
 } from 'application';
 
 const ClientEditorForm = () => {
+  const can = useAccess();
+
   const { id } = useParams();
   const client = useRecoilValue($client.read(id));
   const [updateClient] = useMutation($client.update(id));
@@ -53,6 +55,7 @@ const ClientEditorForm = () => {
         <FormControl id="id">
           <FormLabel>id</FormLabel>
           <Input
+            disabled={!can('client.edit')}
             id="id"
             name="id"
             placeholder="id"
@@ -64,6 +67,7 @@ const ClientEditorForm = () => {
         <FormControl id="signedDocPattern">
           <FormLabel>signedDocPattern</FormLabel>
           <Input
+            disabled={!can('client.edit')}
             id="signedDocPattern"
             name="signedDocPattern"
             placeholder="signedDocPattern"

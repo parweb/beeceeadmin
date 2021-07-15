@@ -9,7 +9,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
-import { /*PrivateRoute,*/ Login, Home, Page, Application } from 'pages';
+import { PrivateRoute, Login, Home, Page, Application } from 'pages';
 
 import { Spinner } from 'layout';
 import theme from 'theme';
@@ -30,12 +30,19 @@ const App = () => (
                 <Page>
                   <Suspense fallback={<Spinner />}>
                     <Route exact path="/auth/login" component={Login} />
-                    <Route exact path="/" component={Home} />
 
-                    <Route
+                    <PrivateRoute exact path="/">
+                      <Home />
+                    </PrivateRoute>
+
+                    <PrivateRoute path="/application/:application/:section/:id?">
+                      <Application />
+                    </PrivateRoute>
+
+                    {/*<Route
                       path="/application/:application/:section/:id?"
                       component={Application}
-                    />
+                    />*/}
                   </Suspense>
                 </Page>
               </IconSettings>

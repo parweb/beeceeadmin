@@ -3,9 +3,11 @@ import { Tooltip } from '@salesforce/design-system-react';
 
 import { Slider } from 'layout';
 import { $group } from 'states';
-import { useMutation } from 'hooks';
+import { useMutation, useAccess } from 'hooks';
 
 const GroupActionSize = ({ groupId, value }) => {
+  const can = useAccess();
+
   const { size } = useRecoilValue($group.read(groupId));
   const [updateGroup] = useMutation($group.update(groupId));
 
@@ -15,6 +17,7 @@ const GroupActionSize = ({ groupId, value }) => {
         <label>1</label>
 
         <Slider
+          disabled={!can('extension.edit')}
           id="group-ation-size"
           label={`${size} Mo`}
           size="x-small"

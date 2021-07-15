@@ -52,3 +52,70 @@ model Environnement {
 
   @@map("codif_environnement")
 }
+
+enum RoleType {
+  ROOT
+  ADMIN
+  USER
+}
+
+model Role {
+  id          Int                  @id @default(autoincrement())
+  type        RoleType             @default(USER)
+  user        User[]
+  permissions PermissionsOnRoles[]
+}
+
+model User {
+  id          Int                  @id @default(autoincrement())
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  username    String?              @unique
+  password    String?
+  token       String?
+  role        Role?                @relation(fields: [role_id], references: [id])
+  role_id     Int?
+  state       Boolean              @default(true)
+  activites   Activity[]
+  permissions PermissionsOnUsers[]
+}
+
+model Permission {
+  id      Int                  @unique @default(autoincrement())
+  subject String
+  action  String
+  users   PermissionsOnUsers[]
+  roles   PermissionsOnRoles[]
+
+  @@id([subject, action])
+}
+
+model PermissionsOnUsers {
+  permission    Permission @relation(fields: [permission_id], references: [id])
+  permission_id Int
+  user          User       @relation(fields: [user_id], references: [id])
+  user_id       Int
+  state         Boolean    @default(false)
+
+  @@id([permission_id, user_id])
+}
+
+model PermissionsOnRoles {
+  permission    Permission @relation(fields: [permission_id], references: [id])
+  permission_id Int
+  role          Role       @relation(fields: [role_id], references: [id])
+  role_id       Int
+  state         Boolean    @default(false)
+
+  @@id([permission_id, role_id])
+}
+
+model Activity {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [user_id], references: [id])
+  user_id   Int?
+  type      String?
+  type_id   String?
+  data      Json?
+}

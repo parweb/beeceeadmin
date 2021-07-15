@@ -2,6 +2,151 @@
 ### Do not make changes to this file directly
 
 
+type Activity {
+  createdAt: DateTime!
+  data: Json
+  id: Int!
+  type: String
+  type_id: String
+  user: User
+}
+
+input ActivityCreateInput {
+  createdAt: DateTime
+  data: Json
+  type: String
+  type_id: String
+  user: UserCreateNestedOneWithoutActivitesInput
+}
+
+input ActivityCreateManyUserInput {
+  createdAt: DateTime
+  data: Json
+  id: Int
+  type: String
+  type_id: String
+}
+
+input ActivityCreateManyUserInputEnvelope {
+  data: [ActivityCreateManyUserInput!]
+  skipDuplicates: Boolean
+}
+
+input ActivityCreateNestedManyWithoutUserInput {
+  connect: [ActivityWhereUniqueInput!]
+  connectOrCreate: [ActivityCreateOrConnectWithoutUserInput!]
+  create: [ActivityCreateWithoutUserInput!]
+  createMany: ActivityCreateManyUserInputEnvelope
+}
+
+input ActivityCreateOrConnectWithoutUserInput {
+  create: ActivityCreateWithoutUserInput!
+  where: ActivityWhereUniqueInput!
+}
+
+input ActivityCreateWithoutUserInput {
+  createdAt: DateTime
+  data: Json
+  type: String
+  type_id: String
+}
+
+input ActivityListRelationFilter {
+  every: ActivityWhereInput
+  none: ActivityWhereInput
+  some: ActivityWhereInput
+}
+
+input ActivityOrderByInput {
+  createdAt: SortOrder
+  data: SortOrder
+  id: SortOrder
+  type: SortOrder
+  type_id: SortOrder
+  user_id: SortOrder
+}
+
+input ActivityScalarWhereInput {
+  AND: [ActivityScalarWhereInput!]
+  NOT: [ActivityScalarWhereInput!]
+  OR: [ActivityScalarWhereInput!]
+  createdAt: DateTimeFilter
+  data: JsonNullableFilter
+  id: IntFilter
+  type: StringNullableFilter
+  type_id: StringNullableFilter
+  user_id: IntNullableFilter
+}
+
+input ActivityUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  data: Json
+  type: NullableStringFieldUpdateOperationsInput
+  type_id: NullableStringFieldUpdateOperationsInput
+  user: UserUpdateOneWithoutActivitesInput
+}
+
+input ActivityUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  data: Json
+  type: NullableStringFieldUpdateOperationsInput
+  type_id: NullableStringFieldUpdateOperationsInput
+}
+
+input ActivityUpdateManyWithWhereWithoutUserInput {
+  data: ActivityUpdateManyMutationInput!
+  where: ActivityScalarWhereInput!
+}
+
+input ActivityUpdateManyWithoutUserInput {
+  connect: [ActivityWhereUniqueInput!]
+  connectOrCreate: [ActivityCreateOrConnectWithoutUserInput!]
+  create: [ActivityCreateWithoutUserInput!]
+  createMany: ActivityCreateManyUserInputEnvelope
+  delete: [ActivityWhereUniqueInput!]
+  deleteMany: [ActivityScalarWhereInput!]
+  disconnect: [ActivityWhereUniqueInput!]
+  set: [ActivityWhereUniqueInput!]
+  update: [ActivityUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [ActivityUpdateManyWithWhereWithoutUserInput!]
+  upsert: [ActivityUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input ActivityUpdateWithWhereUniqueWithoutUserInput {
+  data: ActivityUpdateWithoutUserInput!
+  where: ActivityWhereUniqueInput!
+}
+
+input ActivityUpdateWithoutUserInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  data: Json
+  type: NullableStringFieldUpdateOperationsInput
+  type_id: NullableStringFieldUpdateOperationsInput
+}
+
+input ActivityUpsertWithWhereUniqueWithoutUserInput {
+  create: ActivityCreateWithoutUserInput!
+  update: ActivityUpdateWithoutUserInput!
+  where: ActivityWhereUniqueInput!
+}
+
+input ActivityWhereInput {
+  AND: [ActivityWhereInput!]
+  NOT: [ActivityWhereInput!]
+  OR: [ActivityWhereInput!]
+  createdAt: DateTimeFilter
+  data: JsonNullableFilter
+  id: IntFilter
+  type: StringNullableFilter
+  type_id: StringNullableFilter
+  user: UserWhereInput
+  user_id: IntNullableFilter
+}
+
+input ActivityWhereUniqueInput {
+  id: Int
+}
+
 type AffectedRowsOutput {
   count: Int!
 }
@@ -50,6 +195,34 @@ input CourrierWhereInput {
 
 input CourrierWhereUniqueInput {
   id: String
+}
+
+scalar DateTime
+
+input DateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
+}
+
+input EnumRoleTypeFieldUpdateOperationsInput {
+  set: RoleType
+}
+
+input EnumRoleTypeFilter {
+  equals: RoleType
+  in: [RoleType!]
+  not: NestedEnumRoleTypeFilter
+  notIn: [RoleType!]
 }
 
 type Environnement {
@@ -385,42 +558,91 @@ input IntNullableFilter {
   notIn: [Int!]
 }
 
+scalar Json
+
+input JsonNullableFilter {
+  equals: Json
+  not: Json
+}
+
 type Mutation {
+  createOneActivity(data: ActivityCreateInput!): Activity!
   createOneCourrier(data: CourrierCreateInput!): Courrier!
   createOneEnvironnement(data: EnvironnementCreateInput!): Environnement!
   createOneExtension(data: ExtensionCreateInput!): Extension!
   createOneGroup(data: GroupCreateInput!): Group!
+  createOnePermission(data: PermissionCreateInput!): Permission!
+  createOneRole(data: RoleCreateInput!): Role!
   createOneService(data: ServiceCreateInput!): Service!
+  createOneUser(data: UserCreateInput!): User!
+  deleteManyActivity(where: ActivityWhereInput): AffectedRowsOutput!
   deleteManyCourrier(where: CourrierWhereInput): AffectedRowsOutput!
   deleteManyEnvironnement(where: EnvironnementWhereInput): AffectedRowsOutput!
   deleteManyExtension(where: ExtensionWhereInput): AffectedRowsOutput!
   deleteManyGroup(where: GroupWhereInput): AffectedRowsOutput!
+  deleteManyPermission(where: PermissionWhereInput): AffectedRowsOutput!
+  deleteManyRole(where: RoleWhereInput): AffectedRowsOutput!
   deleteManyService(where: ServiceWhereInput): AffectedRowsOutput!
+  deleteManyUser(where: UserWhereInput): AffectedRowsOutput!
+  deleteOneActivity(where: ActivityWhereUniqueInput!): Activity
   deleteOneCourrier(where: CourrierWhereUniqueInput!): Courrier
   deleteOneEnvironnement(where: EnvironnementWhereUniqueInput!): Environnement
   deleteOneExtension(where: ExtensionWhereUniqueInput!): Extension
   deleteOneGroup(where: GroupWhereUniqueInput!): Group
+  deleteOnePermission(where: PermissionWhereUniqueInput!): Permission
+  deleteOneRole(where: RoleWhereUniqueInput!): Role
   deleteOneService(where: ServiceWhereUniqueInput!): Service
+  deleteOneUser(where: UserWhereUniqueInput!): User
+  updateManyActivity(data: ActivityUpdateManyMutationInput!, where: ActivityWhereInput): AffectedRowsOutput!
   updateManyCourrier(data: CourrierUpdateManyMutationInput!, where: CourrierWhereInput): AffectedRowsOutput!
   updateManyEnvironnement(data: EnvironnementUpdateManyMutationInput!, where: EnvironnementWhereInput): AffectedRowsOutput!
   updateManyExtension(data: ExtensionUpdateManyMutationInput!, where: ExtensionWhereInput): AffectedRowsOutput!
   updateManyGroup(data: GroupUpdateManyMutationInput!, where: GroupWhereInput): AffectedRowsOutput!
+  updateManyPermission(data: PermissionUpdateManyMutationInput!, where: PermissionWhereInput): AffectedRowsOutput!
+  updateManyRole(data: RoleUpdateManyMutationInput!, where: RoleWhereInput): AffectedRowsOutput!
   updateManyService(data: ServiceUpdateManyMutationInput!, where: ServiceWhereInput): AffectedRowsOutput!
+  updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRowsOutput!
+  updateOneActivity(data: ActivityUpdateInput!, where: ActivityWhereUniqueInput!): Activity
   updateOneCourrier(data: CourrierUpdateInput!, where: CourrierWhereUniqueInput!): Courrier
   updateOneEnvironnement(data: EnvironnementUpdateInput!, where: EnvironnementWhereUniqueInput!): Environnement
   updateOneExtension(data: ExtensionUpdateInput!, where: ExtensionWhereUniqueInput!): Extension
   updateOneGroup(data: GroupUpdateInput!, where: GroupWhereUniqueInput!): Group
+  updateOnePermission(data: PermissionUpdateInput!, where: PermissionWhereUniqueInput!): Permission
+  updateOneRole(data: RoleUpdateInput!, where: RoleWhereUniqueInput!): Role
   updateOneService(data: ServiceUpdateInput!, where: ServiceWhereUniqueInput!): Service
+  updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  upsertOneActivity(create: ActivityCreateInput!, update: ActivityUpdateInput!, where: ActivityWhereUniqueInput!): Activity!
   upsertOneCourrier(create: CourrierCreateInput!, update: CourrierUpdateInput!, where: CourrierWhereUniqueInput!): Courrier!
   upsertOneEnvironnement(create: EnvironnementCreateInput!, update: EnvironnementUpdateInput!, where: EnvironnementWhereUniqueInput!): Environnement!
   upsertOneExtension(create: ExtensionCreateInput!, update: ExtensionUpdateInput!, where: ExtensionWhereUniqueInput!): Extension!
   upsertOneGroup(create: GroupCreateInput!, update: GroupUpdateInput!, where: GroupWhereUniqueInput!): Group!
+  upsertOnePermission(create: PermissionCreateInput!, update: PermissionUpdateInput!, where: PermissionWhereUniqueInput!): Permission!
+  upsertOneRole(create: RoleCreateInput!, update: RoleUpdateInput!, where: RoleWhereUniqueInput!): Role!
   upsertOneService(create: ServiceCreateInput!, update: ServiceUpdateInput!, where: ServiceWhereUniqueInput!): Service!
+  upsertOneUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
 
 input NestedBoolFilter {
   equals: Boolean
   not: NestedBoolFilter
+}
+
+input NestedDateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
+}
+
+input NestedEnumRoleTypeFilter {
+  equals: RoleType
+  in: [RoleType!]
+  not: NestedEnumRoleTypeFilter
+  notIn: [RoleType!]
 }
 
 input NestedIntFilter {
@@ -477,7 +699,476 @@ input NullableStringFieldUpdateOperationsInput {
   set: String
 }
 
+type Permission {
+  action: String!
+  id: Int!
+  roles(after: PermissionsOnRolesWhereUniqueInput, before: PermissionsOnRolesWhereUniqueInput, first: Int, last: Int): [PermissionsOnRoles!]!
+  subject: String!
+  users(after: PermissionsOnUsersWhereUniqueInput, before: PermissionsOnUsersWhereUniqueInput, first: Int, last: Int): [PermissionsOnUsers!]!
+}
+
+input PermissionCreateInput {
+  action: String!
+  id: Int
+  roles: PermissionsOnRolesCreateNestedManyWithoutPermissionInput
+  subject: String!
+  users: PermissionsOnUsersCreateNestedManyWithoutPermissionInput
+}
+
+input PermissionCreateNestedOneWithoutRolesInput {
+  connect: PermissionWhereUniqueInput
+  connectOrCreate: PermissionCreateOrConnectWithoutRolesInput
+  create: PermissionCreateWithoutRolesInput
+}
+
+input PermissionCreateNestedOneWithoutUsersInput {
+  connect: PermissionWhereUniqueInput
+  connectOrCreate: PermissionCreateOrConnectWithoutUsersInput
+  create: PermissionCreateWithoutUsersInput
+}
+
+input PermissionCreateOrConnectWithoutRolesInput {
+  create: PermissionCreateWithoutRolesInput!
+  where: PermissionWhereUniqueInput!
+}
+
+input PermissionCreateOrConnectWithoutUsersInput {
+  create: PermissionCreateWithoutUsersInput!
+  where: PermissionWhereUniqueInput!
+}
+
+input PermissionCreateWithoutRolesInput {
+  action: String!
+  id: Int
+  subject: String!
+  users: PermissionsOnUsersCreateNestedManyWithoutPermissionInput
+}
+
+input PermissionCreateWithoutUsersInput {
+  action: String!
+  id: Int
+  roles: PermissionsOnRolesCreateNestedManyWithoutPermissionInput
+  subject: String!
+}
+
+input PermissionOrderByInput {
+  action: SortOrder
+  id: SortOrder
+  subject: SortOrder
+}
+
+input PermissionSubjectActionCompoundUniqueInput {
+  action: String!
+  subject: String!
+}
+
+input PermissionUpdateInput {
+  action: StringFieldUpdateOperationsInput
+  roles: PermissionsOnRolesUpdateManyWithoutPermissionInput
+  subject: StringFieldUpdateOperationsInput
+  users: PermissionsOnUsersUpdateManyWithoutPermissionInput
+}
+
+input PermissionUpdateManyMutationInput {
+  action: StringFieldUpdateOperationsInput
+  subject: StringFieldUpdateOperationsInput
+}
+
+input PermissionUpdateOneRequiredWithoutRolesInput {
+  connect: PermissionWhereUniqueInput
+  connectOrCreate: PermissionCreateOrConnectWithoutRolesInput
+  create: PermissionCreateWithoutRolesInput
+  update: PermissionUpdateWithoutRolesInput
+  upsert: PermissionUpsertWithoutRolesInput
+}
+
+input PermissionUpdateOneRequiredWithoutUsersInput {
+  connect: PermissionWhereUniqueInput
+  connectOrCreate: PermissionCreateOrConnectWithoutUsersInput
+  create: PermissionCreateWithoutUsersInput
+  update: PermissionUpdateWithoutUsersInput
+  upsert: PermissionUpsertWithoutUsersInput
+}
+
+input PermissionUpdateWithoutRolesInput {
+  action: StringFieldUpdateOperationsInput
+  subject: StringFieldUpdateOperationsInput
+  users: PermissionsOnUsersUpdateManyWithoutPermissionInput
+}
+
+input PermissionUpdateWithoutUsersInput {
+  action: StringFieldUpdateOperationsInput
+  roles: PermissionsOnRolesUpdateManyWithoutPermissionInput
+  subject: StringFieldUpdateOperationsInput
+}
+
+input PermissionUpsertWithoutRolesInput {
+  create: PermissionCreateWithoutRolesInput!
+  update: PermissionUpdateWithoutRolesInput!
+}
+
+input PermissionUpsertWithoutUsersInput {
+  create: PermissionCreateWithoutUsersInput!
+  update: PermissionUpdateWithoutUsersInput!
+}
+
+input PermissionWhereInput {
+  AND: [PermissionWhereInput!]
+  NOT: [PermissionWhereInput!]
+  OR: [PermissionWhereInput!]
+  action: StringFilter
+  id: IntFilter
+  roles: PermissionsOnRolesListRelationFilter
+  subject: StringFilter
+  users: PermissionsOnUsersListRelationFilter
+}
+
+input PermissionWhereUniqueInput {
+  id: Int
+  subject_action: PermissionSubjectActionCompoundUniqueInput
+}
+
+type PermissionsOnRoles {
+  permission: Permission!
+  role: Role!
+  state: Boolean!
+}
+
+input PermissionsOnRolesCreateManyPermissionInput {
+  role_id: Int!
+  state: Boolean
+}
+
+input PermissionsOnRolesCreateManyPermissionInputEnvelope {
+  data: [PermissionsOnRolesCreateManyPermissionInput!]
+  skipDuplicates: Boolean
+}
+
+input PermissionsOnRolesCreateManyRoleInput {
+  permission_id: Int!
+  state: Boolean
+}
+
+input PermissionsOnRolesCreateManyRoleInputEnvelope {
+  data: [PermissionsOnRolesCreateManyRoleInput!]
+  skipDuplicates: Boolean
+}
+
+input PermissionsOnRolesCreateNestedManyWithoutPermissionInput {
+  connect: [PermissionsOnRolesWhereUniqueInput!]
+  connectOrCreate: [PermissionsOnRolesCreateOrConnectWithoutPermissionInput!]
+  create: [PermissionsOnRolesCreateWithoutPermissionInput!]
+  createMany: PermissionsOnRolesCreateManyPermissionInputEnvelope
+}
+
+input PermissionsOnRolesCreateNestedManyWithoutRoleInput {
+  connect: [PermissionsOnRolesWhereUniqueInput!]
+  connectOrCreate: [PermissionsOnRolesCreateOrConnectWithoutRoleInput!]
+  create: [PermissionsOnRolesCreateWithoutRoleInput!]
+  createMany: PermissionsOnRolesCreateManyRoleInputEnvelope
+}
+
+input PermissionsOnRolesCreateOrConnectWithoutPermissionInput {
+  create: PermissionsOnRolesCreateWithoutPermissionInput!
+  where: PermissionsOnRolesWhereUniqueInput!
+}
+
+input PermissionsOnRolesCreateOrConnectWithoutRoleInput {
+  create: PermissionsOnRolesCreateWithoutRoleInput!
+  where: PermissionsOnRolesWhereUniqueInput!
+}
+
+input PermissionsOnRolesCreateWithoutPermissionInput {
+  role: RoleCreateNestedOneWithoutPermissionsInput!
+  state: Boolean
+}
+
+input PermissionsOnRolesCreateWithoutRoleInput {
+  permission: PermissionCreateNestedOneWithoutRolesInput!
+  state: Boolean
+}
+
+input PermissionsOnRolesListRelationFilter {
+  every: PermissionsOnRolesWhereInput
+  none: PermissionsOnRolesWhereInput
+  some: PermissionsOnRolesWhereInput
+}
+
+input PermissionsOnRolesPermission_idRole_idCompoundUniqueInput {
+  permission_id: Int!
+  role_id: Int!
+}
+
+input PermissionsOnRolesScalarWhereInput {
+  AND: [PermissionsOnRolesScalarWhereInput!]
+  NOT: [PermissionsOnRolesScalarWhereInput!]
+  OR: [PermissionsOnRolesScalarWhereInput!]
+  permission_id: IntFilter
+  role_id: IntFilter
+  state: BoolFilter
+}
+
+input PermissionsOnRolesUpdateManyMutationInput {
+  state: BoolFieldUpdateOperationsInput
+}
+
+input PermissionsOnRolesUpdateManyWithWhereWithoutPermissionInput {
+  data: PermissionsOnRolesUpdateManyMutationInput!
+  where: PermissionsOnRolesScalarWhereInput!
+}
+
+input PermissionsOnRolesUpdateManyWithWhereWithoutRoleInput {
+  data: PermissionsOnRolesUpdateManyMutationInput!
+  where: PermissionsOnRolesScalarWhereInput!
+}
+
+input PermissionsOnRolesUpdateManyWithoutPermissionInput {
+  connect: [PermissionsOnRolesWhereUniqueInput!]
+  connectOrCreate: [PermissionsOnRolesCreateOrConnectWithoutPermissionInput!]
+  create: [PermissionsOnRolesCreateWithoutPermissionInput!]
+  createMany: PermissionsOnRolesCreateManyPermissionInputEnvelope
+  delete: [PermissionsOnRolesWhereUniqueInput!]
+  deleteMany: [PermissionsOnRolesScalarWhereInput!]
+  disconnect: [PermissionsOnRolesWhereUniqueInput!]
+  set: [PermissionsOnRolesWhereUniqueInput!]
+  update: [PermissionsOnRolesUpdateWithWhereUniqueWithoutPermissionInput!]
+  updateMany: [PermissionsOnRolesUpdateManyWithWhereWithoutPermissionInput!]
+  upsert: [PermissionsOnRolesUpsertWithWhereUniqueWithoutPermissionInput!]
+}
+
+input PermissionsOnRolesUpdateManyWithoutRoleInput {
+  connect: [PermissionsOnRolesWhereUniqueInput!]
+  connectOrCreate: [PermissionsOnRolesCreateOrConnectWithoutRoleInput!]
+  create: [PermissionsOnRolesCreateWithoutRoleInput!]
+  createMany: PermissionsOnRolesCreateManyRoleInputEnvelope
+  delete: [PermissionsOnRolesWhereUniqueInput!]
+  deleteMany: [PermissionsOnRolesScalarWhereInput!]
+  disconnect: [PermissionsOnRolesWhereUniqueInput!]
+  set: [PermissionsOnRolesWhereUniqueInput!]
+  update: [PermissionsOnRolesUpdateWithWhereUniqueWithoutRoleInput!]
+  updateMany: [PermissionsOnRolesUpdateManyWithWhereWithoutRoleInput!]
+  upsert: [PermissionsOnRolesUpsertWithWhereUniqueWithoutRoleInput!]
+}
+
+input PermissionsOnRolesUpdateWithWhereUniqueWithoutPermissionInput {
+  data: PermissionsOnRolesUpdateWithoutPermissionInput!
+  where: PermissionsOnRolesWhereUniqueInput!
+}
+
+input PermissionsOnRolesUpdateWithWhereUniqueWithoutRoleInput {
+  data: PermissionsOnRolesUpdateWithoutRoleInput!
+  where: PermissionsOnRolesWhereUniqueInput!
+}
+
+input PermissionsOnRolesUpdateWithoutPermissionInput {
+  role: RoleUpdateOneRequiredWithoutPermissionsInput
+  state: BoolFieldUpdateOperationsInput
+}
+
+input PermissionsOnRolesUpdateWithoutRoleInput {
+  permission: PermissionUpdateOneRequiredWithoutRolesInput
+  state: BoolFieldUpdateOperationsInput
+}
+
+input PermissionsOnRolesUpsertWithWhereUniqueWithoutPermissionInput {
+  create: PermissionsOnRolesCreateWithoutPermissionInput!
+  update: PermissionsOnRolesUpdateWithoutPermissionInput!
+  where: PermissionsOnRolesWhereUniqueInput!
+}
+
+input PermissionsOnRolesUpsertWithWhereUniqueWithoutRoleInput {
+  create: PermissionsOnRolesCreateWithoutRoleInput!
+  update: PermissionsOnRolesUpdateWithoutRoleInput!
+  where: PermissionsOnRolesWhereUniqueInput!
+}
+
+input PermissionsOnRolesWhereInput {
+  AND: [PermissionsOnRolesWhereInput!]
+  NOT: [PermissionsOnRolesWhereInput!]
+  OR: [PermissionsOnRolesWhereInput!]
+  permission: PermissionWhereInput
+  permission_id: IntFilter
+  role: RoleWhereInput
+  role_id: IntFilter
+  state: BoolFilter
+}
+
+input PermissionsOnRolesWhereUniqueInput {
+  permission_id_role_id: PermissionsOnRolesPermission_idRole_idCompoundUniqueInput
+}
+
+type PermissionsOnUsers {
+  permission: Permission!
+  state: Boolean!
+  user: User!
+}
+
+input PermissionsOnUsersCreateManyPermissionInput {
+  state: Boolean
+  user_id: Int!
+}
+
+input PermissionsOnUsersCreateManyPermissionInputEnvelope {
+  data: [PermissionsOnUsersCreateManyPermissionInput!]
+  skipDuplicates: Boolean
+}
+
+input PermissionsOnUsersCreateManyUserInput {
+  permission_id: Int!
+  state: Boolean
+}
+
+input PermissionsOnUsersCreateManyUserInputEnvelope {
+  data: [PermissionsOnUsersCreateManyUserInput!]
+  skipDuplicates: Boolean
+}
+
+input PermissionsOnUsersCreateNestedManyWithoutPermissionInput {
+  connect: [PermissionsOnUsersWhereUniqueInput!]
+  connectOrCreate: [PermissionsOnUsersCreateOrConnectWithoutPermissionInput!]
+  create: [PermissionsOnUsersCreateWithoutPermissionInput!]
+  createMany: PermissionsOnUsersCreateManyPermissionInputEnvelope
+}
+
+input PermissionsOnUsersCreateNestedManyWithoutUserInput {
+  connect: [PermissionsOnUsersWhereUniqueInput!]
+  connectOrCreate: [PermissionsOnUsersCreateOrConnectWithoutUserInput!]
+  create: [PermissionsOnUsersCreateWithoutUserInput!]
+  createMany: PermissionsOnUsersCreateManyUserInputEnvelope
+}
+
+input PermissionsOnUsersCreateOrConnectWithoutPermissionInput {
+  create: PermissionsOnUsersCreateWithoutPermissionInput!
+  where: PermissionsOnUsersWhereUniqueInput!
+}
+
+input PermissionsOnUsersCreateOrConnectWithoutUserInput {
+  create: PermissionsOnUsersCreateWithoutUserInput!
+  where: PermissionsOnUsersWhereUniqueInput!
+}
+
+input PermissionsOnUsersCreateWithoutPermissionInput {
+  state: Boolean
+  user: UserCreateNestedOneWithoutPermissionsInput!
+}
+
+input PermissionsOnUsersCreateWithoutUserInput {
+  permission: PermissionCreateNestedOneWithoutUsersInput!
+  state: Boolean
+}
+
+input PermissionsOnUsersListRelationFilter {
+  every: PermissionsOnUsersWhereInput
+  none: PermissionsOnUsersWhereInput
+  some: PermissionsOnUsersWhereInput
+}
+
+input PermissionsOnUsersPermission_idUser_idCompoundUniqueInput {
+  permission_id: Int!
+  user_id: Int!
+}
+
+input PermissionsOnUsersScalarWhereInput {
+  AND: [PermissionsOnUsersScalarWhereInput!]
+  NOT: [PermissionsOnUsersScalarWhereInput!]
+  OR: [PermissionsOnUsersScalarWhereInput!]
+  permission_id: IntFilter
+  state: BoolFilter
+  user_id: IntFilter
+}
+
+input PermissionsOnUsersUpdateManyMutationInput {
+  state: BoolFieldUpdateOperationsInput
+}
+
+input PermissionsOnUsersUpdateManyWithWhereWithoutPermissionInput {
+  data: PermissionsOnUsersUpdateManyMutationInput!
+  where: PermissionsOnUsersScalarWhereInput!
+}
+
+input PermissionsOnUsersUpdateManyWithWhereWithoutUserInput {
+  data: PermissionsOnUsersUpdateManyMutationInput!
+  where: PermissionsOnUsersScalarWhereInput!
+}
+
+input PermissionsOnUsersUpdateManyWithoutPermissionInput {
+  connect: [PermissionsOnUsersWhereUniqueInput!]
+  connectOrCreate: [PermissionsOnUsersCreateOrConnectWithoutPermissionInput!]
+  create: [PermissionsOnUsersCreateWithoutPermissionInput!]
+  createMany: PermissionsOnUsersCreateManyPermissionInputEnvelope
+  delete: [PermissionsOnUsersWhereUniqueInput!]
+  deleteMany: [PermissionsOnUsersScalarWhereInput!]
+  disconnect: [PermissionsOnUsersWhereUniqueInput!]
+  set: [PermissionsOnUsersWhereUniqueInput!]
+  update: [PermissionsOnUsersUpdateWithWhereUniqueWithoutPermissionInput!]
+  updateMany: [PermissionsOnUsersUpdateManyWithWhereWithoutPermissionInput!]
+  upsert: [PermissionsOnUsersUpsertWithWhereUniqueWithoutPermissionInput!]
+}
+
+input PermissionsOnUsersUpdateManyWithoutUserInput {
+  connect: [PermissionsOnUsersWhereUniqueInput!]
+  connectOrCreate: [PermissionsOnUsersCreateOrConnectWithoutUserInput!]
+  create: [PermissionsOnUsersCreateWithoutUserInput!]
+  createMany: PermissionsOnUsersCreateManyUserInputEnvelope
+  delete: [PermissionsOnUsersWhereUniqueInput!]
+  deleteMany: [PermissionsOnUsersScalarWhereInput!]
+  disconnect: [PermissionsOnUsersWhereUniqueInput!]
+  set: [PermissionsOnUsersWhereUniqueInput!]
+  update: [PermissionsOnUsersUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [PermissionsOnUsersUpdateManyWithWhereWithoutUserInput!]
+  upsert: [PermissionsOnUsersUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input PermissionsOnUsersUpdateWithWhereUniqueWithoutPermissionInput {
+  data: PermissionsOnUsersUpdateWithoutPermissionInput!
+  where: PermissionsOnUsersWhereUniqueInput!
+}
+
+input PermissionsOnUsersUpdateWithWhereUniqueWithoutUserInput {
+  data: PermissionsOnUsersUpdateWithoutUserInput!
+  where: PermissionsOnUsersWhereUniqueInput!
+}
+
+input PermissionsOnUsersUpdateWithoutPermissionInput {
+  state: BoolFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutPermissionsInput
+}
+
+input PermissionsOnUsersUpdateWithoutUserInput {
+  permission: PermissionUpdateOneRequiredWithoutUsersInput
+  state: BoolFieldUpdateOperationsInput
+}
+
+input PermissionsOnUsersUpsertWithWhereUniqueWithoutPermissionInput {
+  create: PermissionsOnUsersCreateWithoutPermissionInput!
+  update: PermissionsOnUsersUpdateWithoutPermissionInput!
+  where: PermissionsOnUsersWhereUniqueInput!
+}
+
+input PermissionsOnUsersUpsertWithWhereUniqueWithoutUserInput {
+  create: PermissionsOnUsersCreateWithoutUserInput!
+  update: PermissionsOnUsersUpdateWithoutUserInput!
+  where: PermissionsOnUsersWhereUniqueInput!
+}
+
+input PermissionsOnUsersWhereInput {
+  AND: [PermissionsOnUsersWhereInput!]
+  NOT: [PermissionsOnUsersWhereInput!]
+  OR: [PermissionsOnUsersWhereInput!]
+  permission: PermissionWhereInput
+  permission_id: IntFilter
+  state: BoolFilter
+  user: UserWhereInput
+  user_id: IntFilter
+}
+
+input PermissionsOnUsersWhereUniqueInput {
+  permission_id_user_id: PermissionsOnUsersPermission_idUser_idCompoundUniqueInput
+}
+
 type Query {
+  activities(after: ActivityWhereUniqueInput, before: ActivityWhereUniqueInput, first: Int, last: Int, orderBy: [ActivityOrderByInput!], where: ActivityWhereInput): [Activity!]!
+  activity(where: ActivityWhereUniqueInput!): Activity
   courrier(where: CourrierWhereUniqueInput!): Courrier
   courriers(after: CourrierWhereUniqueInput, before: CourrierWhereUniqueInput, first: Int, last: Int, orderBy: [CourrierOrderByInput!], where: CourrierWhereInput): [Courrier!]!
   environnement(where: EnvironnementWhereUniqueInput!): Environnement
@@ -486,13 +1177,137 @@ type Query {
   extensions(after: ExtensionWhereUniqueInput, before: ExtensionWhereUniqueInput, first: Int, last: Int, orderBy: [ExtensionOrderByInput!], where: ExtensionWhereInput): [Extension!]!
   group(where: GroupWhereUniqueInput!): Group
   groups(after: GroupWhereUniqueInput, before: GroupWhereUniqueInput, first: Int, last: Int, orderBy: [GroupOrderByInput!], where: GroupWhereInput): [Group!]!
+  permission(where: PermissionWhereUniqueInput!): Permission
+  permissions(after: PermissionWhereUniqueInput, before: PermissionWhereUniqueInput, first: Int, last: Int, orderBy: [PermissionOrderByInput!], where: PermissionWhereInput): [Permission!]!
+  role(where: RoleWhereUniqueInput!): Role
+  roles(after: RoleWhereUniqueInput, before: RoleWhereUniqueInput, first: Int, last: Int, orderBy: [RoleOrderByInput!], where: RoleWhereInput): [Role!]!
   service(where: ServiceWhereUniqueInput!): Service
   services(after: ServiceWhereUniqueInput, before: ServiceWhereUniqueInput, first: Int, last: Int, orderBy: [ServiceOrderByInput!], where: ServiceWhereInput): [Service!]!
+  user(where: UserWhereUniqueInput!): User
+  users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int, orderBy: [UserOrderByInput!], where: UserWhereInput): [User!]!
 }
 
 enum QueryMode {
   default
   insensitive
+}
+
+type Role {
+  id: Int!
+  permissions(after: PermissionsOnRolesWhereUniqueInput, before: PermissionsOnRolesWhereUniqueInput, first: Int, last: Int): [PermissionsOnRoles!]!
+  type: RoleType!
+  user(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
+}
+
+input RoleCreateInput {
+  permissions: PermissionsOnRolesCreateNestedManyWithoutRoleInput
+  type: RoleType
+  user: UserCreateNestedManyWithoutRoleInput
+}
+
+input RoleCreateNestedOneWithoutPermissionsInput {
+  connect: RoleWhereUniqueInput
+  connectOrCreate: RoleCreateOrConnectWithoutPermissionsInput
+  create: RoleCreateWithoutPermissionsInput
+}
+
+input RoleCreateNestedOneWithoutUserInput {
+  connect: RoleWhereUniqueInput
+  connectOrCreate: RoleCreateOrConnectWithoutUserInput
+  create: RoleCreateWithoutUserInput
+}
+
+input RoleCreateOrConnectWithoutPermissionsInput {
+  create: RoleCreateWithoutPermissionsInput!
+  where: RoleWhereUniqueInput!
+}
+
+input RoleCreateOrConnectWithoutUserInput {
+  create: RoleCreateWithoutUserInput!
+  where: RoleWhereUniqueInput!
+}
+
+input RoleCreateWithoutPermissionsInput {
+  type: RoleType
+  user: UserCreateNestedManyWithoutRoleInput
+}
+
+input RoleCreateWithoutUserInput {
+  permissions: PermissionsOnRolesCreateNestedManyWithoutRoleInput
+  type: RoleType
+}
+
+input RoleOrderByInput {
+  id: SortOrder
+  type: SortOrder
+}
+
+enum RoleType {
+  ADMIN
+  ROOT
+  USER
+}
+
+input RoleUpdateInput {
+  permissions: PermissionsOnRolesUpdateManyWithoutRoleInput
+  type: EnumRoleTypeFieldUpdateOperationsInput
+  user: UserUpdateManyWithoutRoleInput
+}
+
+input RoleUpdateManyMutationInput {
+  type: EnumRoleTypeFieldUpdateOperationsInput
+}
+
+input RoleUpdateOneRequiredWithoutPermissionsInput {
+  connect: RoleWhereUniqueInput
+  connectOrCreate: RoleCreateOrConnectWithoutPermissionsInput
+  create: RoleCreateWithoutPermissionsInput
+  update: RoleUpdateWithoutPermissionsInput
+  upsert: RoleUpsertWithoutPermissionsInput
+}
+
+input RoleUpdateOneWithoutUserInput {
+  connect: RoleWhereUniqueInput
+  connectOrCreate: RoleCreateOrConnectWithoutUserInput
+  create: RoleCreateWithoutUserInput
+  delete: Boolean
+  disconnect: Boolean
+  update: RoleUpdateWithoutUserInput
+  upsert: RoleUpsertWithoutUserInput
+}
+
+input RoleUpdateWithoutPermissionsInput {
+  type: EnumRoleTypeFieldUpdateOperationsInput
+  user: UserUpdateManyWithoutRoleInput
+}
+
+input RoleUpdateWithoutUserInput {
+  permissions: PermissionsOnRolesUpdateManyWithoutRoleInput
+  type: EnumRoleTypeFieldUpdateOperationsInput
+}
+
+input RoleUpsertWithoutPermissionsInput {
+  create: RoleCreateWithoutPermissionsInput!
+  update: RoleUpdateWithoutPermissionsInput!
+}
+
+input RoleUpsertWithoutUserInput {
+  create: RoleCreateWithoutUserInput!
+  update: RoleUpdateWithoutUserInput!
+}
+
+input RoleWhereInput {
+  AND: [RoleWhereInput!]
+  NOT: [RoleWhereInput!]
+  OR: [RoleWhereInput!]
+  id: IntFilter
+  permissions: PermissionsOnRolesListRelationFilter
+  type: EnumRoleTypeFilter
+  user: UserListRelationFilter
+}
+
+input RoleWhereUniqueInput {
+  id: Int
 }
 
 type Service {
@@ -657,4 +1472,275 @@ input StringNullableFilter {
   not: NestedStringNullableFilter
   notIn: [String!]
   startsWith: String
+}
+
+type User {
+  activites(after: ActivityWhereUniqueInput, before: ActivityWhereUniqueInput, first: Int, last: Int): [Activity!]!
+  createdAt: DateTime!
+  id: Int!
+  permissions(after: PermissionsOnUsersWhereUniqueInput, before: PermissionsOnUsersWhereUniqueInput, first: Int, last: Int): [PermissionsOnUsers!]!
+  role: Role
+  state: Boolean!
+  token: String
+  updatedAt: DateTime!
+  username: String
+}
+
+input UserCreateInput {
+  activites: ActivityCreateNestedManyWithoutUserInput
+  createdAt: DateTime
+  password: String
+  permissions: PermissionsOnUsersCreateNestedManyWithoutUserInput
+  role: RoleCreateNestedOneWithoutUserInput
+  state: Boolean
+  token: String
+  updatedAt: DateTime
+  username: String
+}
+
+input UserCreateManyRoleInput {
+  createdAt: DateTime
+  id: Int
+  password: String
+  state: Boolean
+  token: String
+  updatedAt: DateTime
+  username: String
+}
+
+input UserCreateManyRoleInputEnvelope {
+  data: [UserCreateManyRoleInput!]
+  skipDuplicates: Boolean
+}
+
+input UserCreateNestedManyWithoutRoleInput {
+  connect: [UserWhereUniqueInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutRoleInput!]
+  create: [UserCreateWithoutRoleInput!]
+  createMany: UserCreateManyRoleInputEnvelope
+}
+
+input UserCreateNestedOneWithoutActivitesInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutActivitesInput
+  create: UserCreateWithoutActivitesInput
+}
+
+input UserCreateNestedOneWithoutPermissionsInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutPermissionsInput
+  create: UserCreateWithoutPermissionsInput
+}
+
+input UserCreateOrConnectWithoutActivitesInput {
+  create: UserCreateWithoutActivitesInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserCreateOrConnectWithoutPermissionsInput {
+  create: UserCreateWithoutPermissionsInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserCreateOrConnectWithoutRoleInput {
+  create: UserCreateWithoutRoleInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserCreateWithoutActivitesInput {
+  createdAt: DateTime
+  password: String
+  permissions: PermissionsOnUsersCreateNestedManyWithoutUserInput
+  role: RoleCreateNestedOneWithoutUserInput
+  state: Boolean
+  token: String
+  updatedAt: DateTime
+  username: String
+}
+
+input UserCreateWithoutPermissionsInput {
+  activites: ActivityCreateNestedManyWithoutUserInput
+  createdAt: DateTime
+  password: String
+  role: RoleCreateNestedOneWithoutUserInput
+  state: Boolean
+  token: String
+  updatedAt: DateTime
+  username: String
+}
+
+input UserCreateWithoutRoleInput {
+  activites: ActivityCreateNestedManyWithoutUserInput
+  createdAt: DateTime
+  password: String
+  permissions: PermissionsOnUsersCreateNestedManyWithoutUserInput
+  state: Boolean
+  token: String
+  updatedAt: DateTime
+  username: String
+}
+
+input UserListRelationFilter {
+  every: UserWhereInput
+  none: UserWhereInput
+  some: UserWhereInput
+}
+
+input UserOrderByInput {
+  createdAt: SortOrder
+  id: SortOrder
+  password: SortOrder
+  role_id: SortOrder
+  state: SortOrder
+  token: SortOrder
+  updatedAt: SortOrder
+  username: SortOrder
+}
+
+input UserScalarWhereInput {
+  AND: [UserScalarWhereInput!]
+  NOT: [UserScalarWhereInput!]
+  OR: [UserScalarWhereInput!]
+  createdAt: DateTimeFilter
+  id: IntFilter
+  password: StringNullableFilter
+  role_id: IntNullableFilter
+  state: BoolFilter
+  token: StringNullableFilter
+  updatedAt: DateTimeFilter
+  username: StringNullableFilter
+}
+
+input UserUpdateInput {
+  activites: ActivityUpdateManyWithoutUserInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  password: NullableStringFieldUpdateOperationsInput
+  permissions: PermissionsOnUsersUpdateManyWithoutUserInput
+  role: RoleUpdateOneWithoutUserInput
+  state: BoolFieldUpdateOperationsInput
+  token: NullableStringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  username: NullableStringFieldUpdateOperationsInput
+}
+
+input UserUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  password: NullableStringFieldUpdateOperationsInput
+  state: BoolFieldUpdateOperationsInput
+  token: NullableStringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  username: NullableStringFieldUpdateOperationsInput
+}
+
+input UserUpdateManyWithWhereWithoutRoleInput {
+  data: UserUpdateManyMutationInput!
+  where: UserScalarWhereInput!
+}
+
+input UserUpdateManyWithoutRoleInput {
+  connect: [UserWhereUniqueInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutRoleInput!]
+  create: [UserCreateWithoutRoleInput!]
+  createMany: UserCreateManyRoleInputEnvelope
+  delete: [UserWhereUniqueInput!]
+  deleteMany: [UserScalarWhereInput!]
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutRoleInput!]
+  updateMany: [UserUpdateManyWithWhereWithoutRoleInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutRoleInput!]
+}
+
+input UserUpdateOneRequiredWithoutPermissionsInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutPermissionsInput
+  create: UserCreateWithoutPermissionsInput
+  update: UserUpdateWithoutPermissionsInput
+  upsert: UserUpsertWithoutPermissionsInput
+}
+
+input UserUpdateOneWithoutActivitesInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutActivitesInput
+  create: UserCreateWithoutActivitesInput
+  delete: Boolean
+  disconnect: Boolean
+  update: UserUpdateWithoutActivitesInput
+  upsert: UserUpsertWithoutActivitesInput
+}
+
+input UserUpdateWithWhereUniqueWithoutRoleInput {
+  data: UserUpdateWithoutRoleInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpdateWithoutActivitesInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  password: NullableStringFieldUpdateOperationsInput
+  permissions: PermissionsOnUsersUpdateManyWithoutUserInput
+  role: RoleUpdateOneWithoutUserInput
+  state: BoolFieldUpdateOperationsInput
+  token: NullableStringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  username: NullableStringFieldUpdateOperationsInput
+}
+
+input UserUpdateWithoutPermissionsInput {
+  activites: ActivityUpdateManyWithoutUserInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  password: NullableStringFieldUpdateOperationsInput
+  role: RoleUpdateOneWithoutUserInput
+  state: BoolFieldUpdateOperationsInput
+  token: NullableStringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  username: NullableStringFieldUpdateOperationsInput
+}
+
+input UserUpdateWithoutRoleInput {
+  activites: ActivityUpdateManyWithoutUserInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  password: NullableStringFieldUpdateOperationsInput
+  permissions: PermissionsOnUsersUpdateManyWithoutUserInput
+  state: BoolFieldUpdateOperationsInput
+  token: NullableStringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  username: NullableStringFieldUpdateOperationsInput
+}
+
+input UserUpsertWithWhereUniqueWithoutRoleInput {
+  create: UserCreateWithoutRoleInput!
+  update: UserUpdateWithoutRoleInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithoutActivitesInput {
+  create: UserCreateWithoutActivitesInput!
+  update: UserUpdateWithoutActivitesInput!
+}
+
+input UserUpsertWithoutPermissionsInput {
+  create: UserCreateWithoutPermissionsInput!
+  update: UserUpdateWithoutPermissionsInput!
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  activites: ActivityListRelationFilter
+  createdAt: DateTimeFilter
+  id: IntFilter
+  password: StringNullableFilter
+  permissions: PermissionsOnUsersListRelationFilter
+  role: RoleWhereInput
+  role_id: IntNullableFilter
+  state: BoolFilter
+  token: StringNullableFilter
+  updatedAt: DateTimeFilter
+  username: StringNullableFilter
+}
+
+input UserWhereUniqueInput {
+  id: Int
+  username: String
 }

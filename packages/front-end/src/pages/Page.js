@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-// import { Box } from '@chakra-ui/react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Toast, Modal, ModalConfirmation, Grid, Sidebar, Main } from 'layout';
@@ -9,24 +9,36 @@ const Container = styled.div`
   background-color: #eee;
 `;
 
+const noSidebarPages = ['/auth/login'];
+
 const Page = ({ children }) => {
+  const location = useLocation();
+
   return (
     <div>
       <div style={{ minHeight: 'calc(100vh - 63px)' }}>
         <Toast />
 
         <Container>
-          <Grid rows="1fr" columns="200px 1fr" style={{ height: '100vh' }}>
-            <Sidebar>
-              <Suspense fallback={<div>chargement</div>}>
-                <ApplicationList />
-              </Suspense>
-            </Sidebar>
+          {noSidebarPages.includes(location.pathname) ? (
+            <Grid rows="1fr" columns="1fr" style={{ height: '100vh' }}>
+              <Main>
+                <Suspense fallback={<div>chargement</div>}>{children}</Suspense>
+              </Main>
+            </Grid>
+          ) : (
+            <Grid rows="1fr" columns="200px 1fr" style={{ height: '100vh' }}>
+              <Sidebar>
+                <Suspense fallback={<div>chargement</div>}>
+                  <ApplicationList />
+                </Suspense>
+              </Sidebar>
 
-            <Main>
-              <Suspense fallback={<div>chargement</div>}>{children}</Suspense>
-            </Main>
-          </Grid>
+              <Main>
+                <Suspense fallback={<div>chargement</div>}>{children}</Suspense>
+              </Main>
+            </Grid>
+          )}
         </Container>
 
         <Modal key="modal-primary" />

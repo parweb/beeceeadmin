@@ -1,5 +1,5 @@
 import { $courrier, $service } from 'states';
-import { removeCourrier, allCourriers } from 'services';
+import { removeCourrier, allCourriers, createActivity } from 'services';
 
 const remove =
   id =>
@@ -9,6 +9,8 @@ const remove =
     );
 
     await removeCourrier(service.url, id);
+    await createActivity('courrier.remove', id);
+
     const courriers = await allCourriers(service.url);
 
     set($courrier.list, courriers);

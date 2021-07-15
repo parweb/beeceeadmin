@@ -3,9 +3,11 @@ import { Flex, Box, IconButton } from '@chakra-ui/react';
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 
 import { $notification } from 'states';
-import { useMutation, useConfirmation, useToast } from 'hooks';
+import { useMutation, useConfirmation, useToast, useAccess } from 'hooks';
 
 const NotificationItem = ({ id }) => {
+  const can = useAccess();
+
   const { code, description } = useRecoilValue($notification.read(id));
   const editModal = useSetRecoilState($notification.modal(id));
   const [removeNotification] = useMutation($notification.remove(id));
@@ -36,8 +38,12 @@ const NotificationItem = ({ id }) => {
   return (
     <Flex gap="10px">
       <Box d="flex" alignItems="center" justifyContent="flex-start">
-        <IconButton onClick={removeConfirmation} icon={<DeleteIcon />} />
-        <IconButton onClick={editModal} icon={<EditIcon />} />
+        {can('client.delete') && (
+          <IconButton onClick={removeConfirmation} icon={<DeleteIcon />} />
+        )}
+        {can('client.edit') && (
+          <IconButton onClick={editModal} icon={<EditIcon />} />
+        )}
       </Box>
 
       <Box d="flex" alignItems="center" justifyContent="flex-start" w="200px">

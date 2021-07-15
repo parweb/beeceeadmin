@@ -1,5 +1,5 @@
 import { $client, $service } from 'states';
-import { createClient, allClients } from 'services';
+import { createClient, allClients, createActivity } from 'services';
 
 const defaultClient = {
   id: '',
@@ -20,6 +20,8 @@ const create = async ({ set, snapshot }, client = {}) => {
   const service = await snapshot.getPromise($service.current('bca-admin-api'));
 
   await createClient(service, { ...defaultClient, ...client });
+  await createActivity('client.create', null, { ...defaultClient, ...client });
+
   const clients = await allClients(service);
 
   set($client.list, clients);

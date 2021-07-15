@@ -6,13 +6,13 @@ import { useMutation } from 'hooks';
 
 const GroupAdd = () => {
   const [value, setValue] = useState(null);
-  const [addGroup] = useMutation($group.create);
+  const [createGroup] = useMutation($group.create);
 
   return (
     <form
       onSubmit={e => {
         e.preventDefault();
-        addGroup({ name: value });
+        createGroup({ name: value });
         setValue('');
       }}
       style={{

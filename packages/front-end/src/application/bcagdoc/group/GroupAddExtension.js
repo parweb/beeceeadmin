@@ -17,7 +17,7 @@ const GroupAddExtension = ({ groupId }) => {
         e.preventDefault();
 
         updateGroup({
-          extension: value.id
+          extension: { value: true, id: value.id }
         });
 
         setValue(null);

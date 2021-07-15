@@ -1,5 +1,5 @@
 import { $group, $service } from 'states';
-import { removeGroup, allGroups } from 'services';
+import { removeGroup, allGroups, createActivity } from 'services';
 
 const remove =
   id =>
@@ -9,6 +9,8 @@ const remove =
     );
 
     await removeGroup(service.url, id);
+    await createActivity('group.remove', id);
+
     const groups = await allGroups(service.url);
 
     set($group.list, groups);

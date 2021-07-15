@@ -1,2 +1,0 @@
-export { default as DELETE_EXTENSIONS_FROM_GROUP } from './DELETE_EXTENSIONS_FROM_GROUP';
-export { default as MORE_EXTENSIONS } from './MORE_EXTENSIONS';

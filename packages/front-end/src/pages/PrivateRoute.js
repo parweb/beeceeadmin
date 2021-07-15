@@ -2,10 +2,10 @@ import { useRecoilValue } from 'recoil';
 import { Route, Redirect } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 
-import { $user } from 'states';
+import { $auth } from 'states';
 
 const PrivateRoute = ({ children, ...rest }) => {
-  let { isAuthenticated, token } = useRecoilValue($user);
+  let { isAuthenticated, token } = useRecoilValue($auth);
 
   if (isAuthenticated === true) {
     const jwt = jwtDecode(token);

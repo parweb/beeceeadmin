@@ -3,9 +3,11 @@ import { Flex, Box, IconButton } from '@chakra-ui/react';
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 
 import { $position } from 'states';
-import { useMutation, useConfirmation, useToast } from 'hooks';
+import { useMutation, useConfirmation, useToast, useAccess } from 'hooks';
 
 const PositionItem = ({ codeCourrier }) => {
+  const can = useAccess();
+
   const { description } = useRecoilValue(
     $position.readWidthDefault(codeCourrier)
   );
@@ -41,12 +43,16 @@ const PositionItem = ({ codeCourrier }) => {
   return (
     <Flex>
       <Box d="flex" alignItems="center" justifyContent="flex-start">
-        <IconButton
-          visibility={isDefault && 'hidden'}
-          onClick={removeConfirmation}
-          icon={<DeleteIcon />}
-        />
-        <IconButton onClick={openModal} icon={<EditIcon />} />
+        {can('client.delete') && (
+          <IconButton
+            visibility={isDefault && 'hidden'}
+            onClick={removeConfirmation}
+            icon={<DeleteIcon />}
+          />
+        )}
+        {can('client.edit') && (
+          <IconButton onClick={openModal} icon={<EditIcon />} />
+        )}
       </Box>
 
       <Box d="flex" alignItems="center" justifyContent="flex-start" w="200px">

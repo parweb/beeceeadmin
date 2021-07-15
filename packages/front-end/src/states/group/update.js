@@ -1,5 +1,5 @@
 import { $group, $service } from 'states';
-import { updateGroup, allGroups } from 'services';
+import { updateGroup, allGroups, createActivity } from 'services';
 
 const update =
   id =>
@@ -9,6 +9,8 @@ const update =
     );
 
     await updateGroup(service.url, id, data);
+    await createActivity('group.update', id, data);
+
     const groups = await allGroups(service.url);
 
     set($group.list, groups);

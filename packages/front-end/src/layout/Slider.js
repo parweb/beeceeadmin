@@ -15,10 +15,20 @@ const SliderSalesforceStyled = styled(SliderSalesforce)`
   }
 `;
 
-const Slider = ({ id = null, label, onChange, value, min, max, step = 1 }) => {
+const Slider = ({
+  id = null,
+  label,
+  onChange,
+  value,
+  min,
+  max,
+  step = 1,
+  disabled = false
+}) => {
   return (
     <Grid id={id} className="slider-btns" gap="2px" columns="auto 1fr auto">
       <Button
+        disabled={disabled}
         id="less"
         label="-"
         onClick={() => {
@@ -27,6 +37,7 @@ const Slider = ({ id = null, label, onChange, value, min, max, step = 1 }) => {
       />
 
       <SliderSalesforceStyled
+        disabled={disabled}
         label={label}
         onChange={onChange}
         value={value}
@@ -36,6 +47,7 @@ const Slider = ({ id = null, label, onChange, value, min, max, step = 1 }) => {
       />
 
       <Button
+        disabled={disabled}
         id="more"
         label="+"
         onClick={() => {

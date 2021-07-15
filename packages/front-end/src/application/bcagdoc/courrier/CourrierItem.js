@@ -1,8 +1,11 @@
 import { Badge } from '@chakra-ui/react';
 
 import { BcagdocCourrierActionDelete } from 'application';
+import { useAccess } from 'hooks';
 
 const CourrierItem = ({ id, name }) => {
+  const can = useAccess();
+
   return (
     <div
       style={{
@@ -15,7 +18,9 @@ const CourrierItem = ({ id, name }) => {
         gap: '7px'
       }}
     >
-      <BcagdocCourrierActionDelete courrierId={id} name={name} />
+      {can('courrier.delete') && (
+        <BcagdocCourrierActionDelete courrierId={id} name={name} />
+      )}
 
       <h1
         style={{

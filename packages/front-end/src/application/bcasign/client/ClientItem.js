@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 
 import { $client } from 'states';
-import { useMutation } from 'hooks';
+import { useMutation, useAccess } from 'hooks';
 
 const Link = styled(NavLink)`
   transition: all 1s ease;
@@ -60,6 +60,7 @@ const ClientItemUi = styled.li`
 `;
 
 const ClientItem = ({ name }) => {
+  const can = useAccess();
   const [duplicateClient] = useMutation($client.duplicate(name));
 
   return (
@@ -75,15 +76,17 @@ const ClientItem = ({ name }) => {
             variant="link"
           />
           <MenuList>
-            <MenuItem
-              onClick={() => {
-                const id = prompt('Nouveau code client ?');
-                duplicateClient({ id });
-              }}
-              icon={<GrClone />}
-            >
-              Dupliquer
-            </MenuItem>
+            {can('client.edit') && (
+              <MenuItem
+                onClick={() => {
+                  const id = prompt('Nouveau code client ?');
+                  duplicateClient({ id });
+                }}
+                icon={<GrClone />}
+              >
+                Dupliquer
+              </MenuItem>
+            )}
           </MenuList>
         </Menu>
       </div>

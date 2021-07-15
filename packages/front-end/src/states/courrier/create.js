@@ -1,5 +1,5 @@
 import { $courrier, $service } from 'states';
-import { createCourrier, allCourriers } from 'services';
+import { createCourrier, allCourriers, createActivity } from 'services';
 
 const create = async ({ set, snapshot }, courrier) => {
   const service = await snapshot.getPromise(
@@ -7,6 +7,8 @@ const create = async ({ set, snapshot }, courrier) => {
   );
 
   await createCourrier(service.url, courrier);
+  await createActivity('courrier.create', null, courrier);
+
   const courriers = await allCourriers(service.url);
 
   set($courrier.list, courriers);
