@@ -1,0 +1,39 @@
+version: "3.3"
+
+services:
+  front-end:
+    build:
+      context: ./packages/front-end/
+      args:
+        NODE_ENV: production
+        REACT_APP_API: http://s00i105.bcaexpertise.org:7438/bca-admin/api
+    depends_on:
+      - back-end
+    restart: always
+    volumes:
+      - /app/node_modules
+    stdin_open: true
+    networks: 
+      -  app-network
+    ports:
+      - "7437:3333"
+
+  back-end:
+    environment:
+      - NAMESPACE=/bca-admin/api
+    build:
+      context: ./packages/back-end/
+      args:
+        DATABASE_URL: postgresql://BCAGDOC:BCAGDOCPASSPRO@PSQL_PRO.bcaexpertise.org:5447/bcagdoc?schema=public
+    ports:
+      - "7438:3500"
+    networks: 
+      -  app-network
+    restart: always
+    volumes:
+      - /app/node_modules
+      - /app/tmp
+
+networks: 
+  app-network:
+    external: true
